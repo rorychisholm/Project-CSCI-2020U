@@ -22,12 +22,12 @@ public class ClientConnectionServer extends Thread{
             int i = 0;
             Vector<Thread> handlerThread = new Vector<Thread>(); // Vector of threads to make it Multithreading
             while (!serverSocket.isClosed()) {
-                    System.out.println("ClientConnectionServer listening on port " + port); // Displays waiting text
-                    Socket socket = serverSocket.accept(); // Waits for clients to get sockets
-                    System.out.println("Client Found..."); // When client is connected
-                    handlerThread.add(i, new Thread(new ClientConnectionHandler(socket))); // makes new thread to handle it
-                    handlerThread.get(i).start(); // starts new thread
-                    i++;
+                System.out.println("ClientConnectionServer listening on port " + port); // Displays waiting text
+                Socket socket = serverSocket.accept(); // Waits for clients to get sockets
+                System.out.println("Client Found..."); // When client is connected
+                handlerThread.add(i, new Thread(new ClientConnectionHandler(socket))); // makes new thread to handle it
+                handlerThread.get(i).start(); // starts new thread
+                i++;
             }
         } catch (IOException e) {}
     }
