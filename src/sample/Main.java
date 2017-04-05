@@ -1,19 +1,55 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     static int port = 8080; // Port Number
     static String hostName = "127.0.0.1"; // Return host address
+    private BorderPane layout;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        primaryStage.setTitle("Server Selection");
+        boolean runServer;
+
+        GridPane serverSelection = new GridPane();
+        serverSelection.setPadding(new Insets(10, 10, 10, 10));
+        serverSelection.setVgap(10);
+        serverSelection.setHgap(10);
+
+        Button runButton = new Button("Run Server");
+        runButton.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+            }
+        });
+        serverSelection.add(runButton, 1, 4);
+
+        Button noRunButton = new Button("Don't Run Server");
+        noRunButton.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent e) {
+            }
+        });
+        serverSelection.add(noRunButton, 1, 5);
+
+        layout = new BorderPane();
+        layout.setCenter(serverSelection);
+        Scene selectionScene = new Scene(layout, 200, 200);
+        primaryStage.setScene(selectionScene);
+        primaryStage.show();
+
         int numberOfClients = 2; // Number of Clients(changing the number runs more clients at once)
 
         ClientConnectionServer server = new ClientConnectionServer(port); // Initializes Server Thread
