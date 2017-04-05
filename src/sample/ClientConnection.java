@@ -1,6 +1,7 @@
 package sample;
 
-
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -41,6 +43,18 @@ public class ClientConnection extends Thread {
     @Override
     public void run() {
         primaryStage.setTitle("Assignment02 - Client Number: " + cNum);
+        //menu
+        MenuBar bar = new MenuBar();//bar to hold menus
+
+        Menu fileMenu = new Menu("File"); //make File menu
+
+        bar.getMenus().add(fileMenu); // add to bar
+
+
+        //text area
+
+        TextArea textArea = new TextArea();
+
 
         ListView<String> clientList = new ListView<String>(); // ListView for client storage
         clientList.setEditable(true);
@@ -98,8 +112,10 @@ public class ClientConnection extends Thread {
         fileView.setDividerPositions(0.50);
 
         layout = new BorderPane(); // sets layout
-        layout.setTop(editArea);
-        layout.setCenter(fileView);
+        layout.setTop(bar);
+        layout.setBottom(editArea);
+        //layout.setCenter(fileView);
+        layout.setCenter(textArea);
     }
 
     public synchronized ObservableList<String> sendDIRCmd() { //sends DIR command, receives list of files in server storage
