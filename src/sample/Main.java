@@ -7,12 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application
+{
+
     static int port = 8080; // Port Number
     static String hostName = "127.0.0.1"; // Return host address
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception
+
+    {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         int numberOfClients = 2; // Number of Clients(changing the number runs more clients at once)
 
@@ -23,7 +27,8 @@ public class Main extends Application {
         ClientConnection clientClass[] = new ClientConnection[numberOfClients]; // Makes array of Client Threads
         Scene scene[] = new Scene[numberOfClients]; // Makes array of scenes
 
-        for (int i = 0; i < numberOfClients; i++) {
+        for (int i = 0; i < numberOfClients; i++)
+        {
             clientStages[i] = new Stage(); // Makes new stage
             clientClass[i] = new ClientConnection(port, hostName, clientStages[i], i + 1); // Initializes client
             clientClass[i].start(); // Starts client thread
