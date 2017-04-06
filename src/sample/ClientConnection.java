@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
+import java.util.Vector;
 
 
 /**
@@ -51,10 +53,8 @@ public class ClientConnection extends Thread {
         bar.getMenus().add(fileMenu); // add to bar
 
 
-        //text area
-
+        //Text Area
         TextArea textArea = new TextArea();
-
 
         ListView<String> clientList = new ListView<String>(); // ListView for client storage
         clientList.setEditable(true);
@@ -101,7 +101,11 @@ public class ClientConnection extends Thread {
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                updateList(clientList, serverList);
+                //updateList(clientList, serverList);
+                Vector<String> temp = sendDIRCmd();
+                for (int i = 0; i < temp.size();i++){
+                    textArea.appendText(temp.get(i));
+                }
             }
         });
         editArea.add(updateButton, 2, 0);
@@ -118,27 +122,25 @@ public class ClientConnection extends Thread {
         layout.setCenter(textArea);
     }
 
-    public synchronized ObservableList<String> sendDIRCmd() { //sends DIR command, receives list of files in server storage
+    public synchronized Vector<String> sendDIRCmd() { //sends DIR command, receives list of files in server storage
         try {
             // Initializes sockets and in and out streams
+            Vector<String> stringList = new Vector<>(); //Flexible Array
             Socket socket = new Socket(hostName, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             out.println("DIR"); // Sends command
             out.flush(); // Flushes printwriter
             String response; //
-            response = in.readLine(); // Reads response line by line
-            String[] responseParts = response.split(" "); // Splits by spaces them into array
-            ObservableList<String> tempList = FXCollections.observableArrayList();// Makes new observable list to store values in
-            for (int i = 0; i < responseParts.length; i++) {
-                tempList.add(responseParts[i]);
+            while ((response = in.readLine()) != null){// Reads response line by line
+                stringList.add(response);
             }
             // Closes the connection
             out.close();
             in.close();
             socket.close();
-            return tempList; // returns List
-        } catch (IOException e) {}
+            return stringList; // returns List
+        }catch (IOException e) {}
         return null; // returns null if not
     }
 
@@ -216,7 +218,7 @@ public class ClientConnection extends Thread {
         // Updates observable list and calls listFiles and sendDIRCmd
         System.out.println("Updating...");
         observClieList = listFiles();
-        observServList = sendDIRCmd();
+        //observServList = sendDIRCmd();
         clientList.setItems(observClieList);
         serverList.setItems(observServList);
         System.out.println(" ...Done");
