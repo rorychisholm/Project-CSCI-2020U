@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -12,12 +13,12 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 
 /**
@@ -28,11 +29,12 @@ public class ClientConnection extends Thread {
     private BufferedReader in;
     private PrintWriter out;
     private BorderPane layout;
-    private Stage primaryStage; // stage being used
-    private ObservableList<String> observServList, observClieList; // List for storing file names int he storage
-    private int port, cNum;// port number and number of clients
-    private String hostName;
-    private String clientStorageRoot;// root file for client storage
+    private Stage primaryStage; // Stage being used
+    private int port, cNum; // Port number and number of clients
+    private String hostName, clientStorageRoot;
+    private TextArea textArea;
+    private Timer timer;
+    private boolean timerCloseFlag;
 
     public ClientConnection(int port, String hostName, Stage stage, int cNum) {
         this.port = port;
@@ -40,42 +42,57 @@ public class ClientConnection extends Thread {
         this.primaryStage = stage;
         this.cNum = cNum;
         this.clientStorageRoot = "clientStorage";
+        this.timer = new Timer();
+        this.timerCloseFlag = false;
     }
 
     @Override
     public void run() {
-        primaryStage.setTitle("Assignment02 - Client Number: " + cNum);
-        //menu
-        MenuBar bar = new MenuBar();//bar to hold menus
+        primaryStage.setTitle("Multi-person Text Editor - Client Number: " + cNum);
+        ////////////////////////////////////////MENU BAR////////////////////////////////////////
+        Menu fileMenu = new Menu("File");
+        // NEW MENU ITEM
+        MenuItem newMenuItem = new MenuItem("New");
+        newMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+        newMenuItem.setOnAction(e -> clear());
+        fileMenu.getItems().add(newMenuItem);
+        fileMenu.getItems().add(new SeparatorMenuItem());
+        // OPEN MENU ITEM
+        MenuItem openMenuItem = new MenuItem("Open...");
+        fileMenu.getItems().add(openMenuItem);
+        openMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
+        //openMenuItem.setOnAction(e -> openFile(primaryStage));
+        fileMenu.getItems().add(new SeparatorMenuItem());
+        // SAVE MENU ITEM
+        MenuItem saveMenuItem = new MenuItem("Local Save");
+        fileMenu.getItems().add(saveMenuItem);
+        saveMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+        //saveMenuItem.setOnAction(e -> saveFile());
+        // SAVE AS MENU ITEM
+        MenuItem saveAsMenuItem = new MenuItem("Local Save As...");
+        fileMenu.getItems().add(saveAsMenuItem);
+        //saveAsMenuItem.setOnAction(e -> saveAs(primaryStage));
+        fileMenu.getItems().add(new SeparatorMenuItem());
+        // EXIT MENU ITEM
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        fileMenu.getItems().add(exitMenuItem);
+        exitMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
+        exitMenuItem.setOnAction(e -> ((Stage) textArea.getScene().getWindow()).close());
 
-        Menu fileMenu = new Menu("File"); //make File menu
-
-        bar.getMenus().add(fileMenu); // add to bar
-
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(fileMenu);
+        ////////////////////////////////////////END OF MENU BAR////////////////////////////////////////
 
         //Text Area
-        TextArea textArea = new TextArea();
-
-        ListView<String> clientList = new ListView<String>(); // ListView for client storage
-        clientList.setEditable(true);
-
-        ListView<String> serverList = new ListView<String>(); // ListView for server storage
-        serverList.setEditable(true);
+        textArea = new TextArea();
 
         ////////////////////////////////////////BUTTONS////////////////////////////////////////
         GridPane editArea = new GridPane();
-
         // ADD BUTTON
         Button uploadButton = new Button("Upload");
         uploadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                if (clientList.getEditingIndex() != -1) {// returns index of selected list value and if its not nothing
-                    System.out.println("Uploading...");
-                    uploadFileCmd(observClieList.get(clientList.getEditingIndex()));
-                    System.out.println(" ...Done Uploading");
-                }
-                updateList(clientList, serverList);
             }
         });
         editArea.add(uploadButton, 0, 0);
@@ -85,13 +102,7 @@ public class ClientConnection extends Thread {
         downloadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                //System.out.println("Editing Index: " + serverList.getEditingIndex());
-                if (serverList.getEditingIndex() != -1) { // returns index of selected list value and if its not nothing
-                    System.out.println("Downloading...");
-                    downloadFileCmd(observServList.get(serverList.getEditingIndex()));
-                    System.out.println(" ...Done Downloading");
-                }
-                updateList(clientList, serverList);
+                cancelTimer();
             }
         });
         editArea.add(downloadButton, 1, 0);
@@ -111,17 +122,97 @@ public class ClientConnection extends Thread {
         editArea.add(updateButton, 2, 0);
         ////////////////////////////////////////END OF BUTTONS////////////////////////////////////////
 
-        updateList(clientList, serverList); // Calls update list upon loading
-        SplitPane fileView = new SplitPane(clientList, serverList); // Makes SplitPane dividing the 2 list views
-        fileView.setDividerPositions(0.50);
-
         layout = new BorderPane(); // sets layout
-        layout.setTop(bar);
-        layout.setBottom(editArea);
-        //layout.setCenter(fileView);
+        layout.setTop(menuBar);
         layout.setCenter(textArea);
+        layout.setBottom(editArea);
+
+/*
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Vector<String> temp = sendDIRCmd();
+                for (int i = 0; i < temp.size(); i++) {
+                    if (temp != null){
+                        textArea.appendText(temp.get(i));
+                    }
+                }
+                if (timerCloseFlag == true){
+                    timer.cancel();
+                }
+            }
+        }, 0, 1000);
+*/
     }
 
+    ////////////////////////////////////////MENU BAR FUNCTIONS////////////////////////////////////////
+    public void clear() {
+        textArea.setText("");
+    }
+
+    public void openFile(Stage stage) {
+        /*try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File("."));
+            currentFilename = fileChooser.showOpenDialog(stage);
+            //System.out.println(currentFilename.getName());
+            load();
+        } catch (NullPointerException ne) {
+            System.out.println("No Selected File");
+            //ne.printStackTrace();
+        }*/
+    }
+
+    public void load() {
+        /*try {
+            BufferedReader in = new BufferedReader(new FileReader(currentFilename));// stores files
+            ObservableList<StudentRecord> tempList = FXCollections.observableArrayList();
+            String line; // reads file line by line
+            while ((line = in.readLine()) != null) {
+                String[] inText = line.split(","); // splits the string on the "," store in array of strings
+                StudentRecord temp = new StudentRecord(inText[0], Double.parseDouble(inText[1]), Double.parseDouble(inText[2]), Double.parseDouble(inText[3]));
+                tempList.add(temp);
+            }
+            table.setItems(tempList);
+        } catch (IOException e) {
+        }*/
+    }
+
+    public void saveFile() {
+        /*try {
+            if (currentFilename == null) {
+                currentFilename = new File("StudentData.csv");
+                currentFilename.createNewFile();
+            }
+            if (!currentFilename.exists() || currentFilename.canWrite()) { // if the out file given exists and is write-able
+                PrintWriter fout = new PrintWriter(currentFilename); // new PrintWriter
+                //Set<String> keys = wordCounts.keySet(); // makes a list of all the keys (words)
+                Iterator<StudentRecord> tableIterator = table.getItems().iterator(); // makes an iteration to  keep track of location in the keys
+                while (tableIterator.hasNext()) { // while the iterator can find a next word continue
+                    StudentRecord key = tableIterator.next(); // sets to next word
+                    //Student ID, Assignments, Midterm, Final Exam, Final Mark, Letter Grade
+                    fout.println(key.getStudentID() + "," + key.getAssignment() + "," + key.getMidterm() + "," + key.getFinalExam()); //+ "," + key.getFinalMark() + "," + key.getLetterGrade()
+                }
+                fout.close(); //closes PrintWriter
+            }
+        } catch (IOException e) {
+            System.out.println("IO Exception Thrown");
+            //e.printStackTrace();
+        }*/
+    }
+
+    public void saveAs(Stage stage) {
+        /*try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File("."));
+            currentFilename = fileChooser.showSaveDialog(stage);
+            saveFile();
+        } catch (NullPointerException ne) {
+            System.out.println("No Selected File");
+        }*/
+    }
+
+    ////////////////////////////////////////COMMAND FUNCTIONS////////////////////////////////////////
     public synchronized Vector<String> sendDIRCmd() { //sends DIR command, receives list of files in server storage
         try {
             // Initializes sockets and in and out streams
@@ -144,6 +235,7 @@ public class ClientConnection extends Thread {
         return null; // returns null if not
     }
 
+    /*
     public void uploadFileCmd(String fileName) { //sends UPLOAD command
         try {
             // Initializes sockets and in and out streams
@@ -223,8 +315,14 @@ public class ClientConnection extends Thread {
         serverList.setItems(observServList);
         System.out.println(" ...Done");
     }
-
+    */
+    public synchronized void cancelTimer(){
+        timerCloseFlag = true;
+        //System.out.println("Client Num " + cNum+", Timer Closed");
+    }
+    public int getClientNum(){return cNum;}
     public BorderPane getLayout() { // Returns layout value used for scene
+
         return this.layout;
     }
 }

@@ -1,5 +1,7 @@
 package sample;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -49,18 +51,21 @@ public class ClientConnectionHandler implements Runnable {
             e.printStackTrace();
         }
     }
-    private void cmdDIR(){ // Handles DIR command, sends list of files in a string
-        String toSend = "";
-        File baseDir = new File(ROOT);
-        File fileList[] = baseDir.listFiles();
-        for (int i = 0; i< fileList.length; i++){
-            toSend += fileList[i].getName();
-            if (i != (fileList.length - 1)){
-                toSend += " ";
+    private void cmdDIR() throws IOException
+    { // Handles DIR command, sends list of files in a string
+        String toSend = "", line = "";
+        File file = new File(ROOT, "RoomieShoppingList.txt");
+        BufferedReader in = new BufferedReader(new FileReader(file));
+        String newLineChar = System.getProperty("line.separator");
+
+            while ((line = in.readLine()) != null)
+            {
+                toSend += line;
+                toSend += newLineChar;
             }
-        }
-        out2.print(toSend);
-        out2.flush();
+            out2.print(toSend);
+            out2.print(newLineChar);
+            out2.flush();
     }
 
     private void cmdUPLOAD(String fileName) throws IOException{ // Handles UPLOAD command
