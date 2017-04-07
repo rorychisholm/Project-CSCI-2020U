@@ -59,11 +59,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="40" column="41" lean-forward="true" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+            <state relative-caret-position="-238">
+              <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,26 +71,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientConnection.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClientConnection.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/ClientConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="320" column="10" lean-forward="false" selection-start-line="320" selection-start-column="10" selection-end-line="320" selection-end-column="10" />
+            <state relative-caret-position="103">
+              <caret line="140" column="61" lean-forward="false" selection-start-line="140" selection-start-column="61" selection-end-line="140" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#ClientConnection#0" expanded="false" />
-                <element signature="class#3641:3764" expanded="false" />
-                <element signature="class#3956:4110" expanded="false" />
-                <element signature="e#4054#4055#0" expanded="true" />
-                <element signature="e#4099#4100#0" expanded="true" />
-                <element signature="class#4322:4677" expanded="false" />
+                <element signature="class#3711:3834" expanded="false" />
+                <element signature="class#4026:4180" expanded="false" />
+                <element signature="e#4124#4125#0" expanded="true" />
+                <element signature="e#4169#4170#0" expanded="true" />
+                <element signature="e#5142#5489#0" expanded="true" />
+                <element signature="e#5488#5489#0" expanded="true" />
                 <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#saveFile#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
-                <element signature="method#sendDIRCmd#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#getLayout#0;class#ClientConnection#0" expanded="false" />
-                <marker date="1491524497330" expanded="false" signature="11967:12480" ph="{...}" />
+                <marker date="1491532359004" expanded="false" signature="12099:12612" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -99,11 +99,10 @@
       <file leaf-file-name="ClientConnectionServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+            <state relative-caret-position="101">
+              <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#run#0;class#ClientConnectionServer#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -112,7 +111,7 @@
       <file leaf-file-name="ClientConnectionHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1632">
+            <state relative-caret-position="1173">
               <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -135,6 +134,7 @@
       <find>editArea</find>
       <find>i</find>
       <find>index</find>
+      <find>clientClass</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -153,8 +153,9 @@
         <option value="$PROJECT_DIR$/src/sample/ClientConnectionServer.java" />
         <option value="$PROJECT_DIR$/src/sample/ClientConnectionHandler.java" />
         <option value="$PROJECT_DIR$/src/sample/runServerClass.java" />
-        <option value="$PROJECT_DIR$/src/sample/ClientConnection.java" />
+        <option value="$PROJECT_DIR$/src/sample/TimerClass.java" />
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
+        <option value="$PROJECT_DIR$/src/sample/ClientConnection.java" />
       </list>
     </option>
   </component>
@@ -169,7 +170,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -182,7 +183,43 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project-CSCI-2020U" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project-CSCI-2020U" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project-CSCI-2020U" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project-CSCI-2020U" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -463,13 +500,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3522907" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3522907" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20484582" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20424597" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -529,18 +566,18 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#ClientConnection#0" expanded="false" />
-            <element signature="class#3641:3764" expanded="false" />
-            <element signature="class#3956:4110" expanded="false" />
-            <element signature="e#4054#4055#0" expanded="true" />
-            <element signature="e#4099#4100#0" expanded="true" />
-            <element signature="class#4322:4677" expanded="false" />
+            <element signature="class#3711:3834" expanded="false" />
+            <element signature="class#4026:4180" expanded="false" />
+            <element signature="e#4124#4125#0" expanded="true" />
+            <element signature="e#4169#4170#0" expanded="true" />
+            <element signature="e#5142#5489#0" expanded="true" />
+            <element signature="e#5488#5489#0" expanded="true" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#saveFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#sendDIRCmd#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#getLayout#0;class#ClientConnection#0" expanded="false" />
-            <marker date="1491524497330" expanded="false" signature="11967:12480" ph="{...}" />
+            <marker date="1491532359004" expanded="false" signature="12099:12612" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -551,7 +588,6 @@
           <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionServer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -583,18 +619,18 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#ClientConnection#0" expanded="false" />
-            <element signature="class#3641:3764" expanded="false" />
-            <element signature="class#3956:4110" expanded="false" />
-            <element signature="e#4054#4055#0" expanded="true" />
-            <element signature="e#4099#4100#0" expanded="true" />
-            <element signature="class#4322:4677" expanded="false" />
+            <element signature="class#3711:3834" expanded="false" />
+            <element signature="class#4026:4180" expanded="false" />
+            <element signature="e#4124#4125#0" expanded="true" />
+            <element signature="e#4169#4170#0" expanded="true" />
+            <element signature="e#5142#5489#0" expanded="true" />
+            <element signature="e#5488#5489#0" expanded="true" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#saveFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#sendDIRCmd#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#getLayout#0;class#ClientConnection#0" expanded="false" />
-            <marker date="1491524497330" expanded="false" signature="11967:12480" ph="{...}" />
+            <marker date="1491532359004" expanded="false" signature="12099:12612" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -605,7 +641,6 @@
           <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionServer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -674,16 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/runServerClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/Timer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7378">
@@ -692,10 +717,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/TimerClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/runServerClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
+        <state relative-caret-position="1173">
           <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -704,44 +755,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+        <state relative-caret-position="101">
+          <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionServer#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ClientConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="320" column="10" lean-forward="false" selection-start-line="320" selection-start-column="10" selection-end-line="320" selection-end-column="10" />
+        <state relative-caret-position="103">
+          <caret line="140" column="61" lean-forward="false" selection-start-line="140" selection-start-column="61" selection-end-line="140" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#ClientConnection#0" expanded="false" />
-            <element signature="class#3641:3764" expanded="false" />
-            <element signature="class#3956:4110" expanded="false" />
-            <element signature="e#4054#4055#0" expanded="true" />
-            <element signature="e#4099#4100#0" expanded="true" />
-            <element signature="class#4322:4677" expanded="false" />
+            <element signature="class#3711:3834" expanded="false" />
+            <element signature="class#4026:4180" expanded="false" />
+            <element signature="e#4124#4125#0" expanded="true" />
+            <element signature="e#4169#4170#0" expanded="true" />
+            <element signature="e#5142#5489#0" expanded="true" />
+            <element signature="e#5488#5489#0" expanded="true" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#saveFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#sendDIRCmd#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#getLayout#0;class#ClientConnection#0" expanded="false" />
-            <marker date="1491524497330" expanded="false" signature="11967:12480" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="40" column="41" lean-forward="true" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1491532359004" expanded="false" signature="12099:12612" ph="{...}" />
           </folding>
         </state>
       </provider>

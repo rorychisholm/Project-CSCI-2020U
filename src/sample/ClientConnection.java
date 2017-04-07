@@ -17,14 +17,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.*;
+
+import static java.lang.System.err;
 
 
 /**
  * Created by 100560820 on 3/28/2017.
  */
-public class ClientConnection extends Thread {
+public class ClientConnection extends Thread{
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
@@ -111,7 +114,7 @@ public class ClientConnection extends Thread {
         Button updateButton = new Button("Update");
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
+            public void handle(ActionEvent e){
                 //updateList(clientList, serverList);
                 Vector<String> temp = sendDIRCmd();
                 for (int i = 0; i < temp.size();i++){
@@ -126,25 +129,21 @@ public class ClientConnection extends Thread {
         layout.setTop(menuBar);
         layout.setCenter(textArea);
         layout.setBottom(editArea);
-
-/*
-        timer.schedule(new TimerTask() {
+        timerStart();
+    }
+    private void timerStart(){
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Vector<String> temp = sendDIRCmd();
-                for (int i = 0; i < temp.size(); i++) {
-                    if (temp != null){
-                        textArea.appendText(temp.get(i));
+                if (temp != null){
+                    for (int i = 0; i < temp.size(); i++) {
+                        textArea.appendText(temp.get(i) + "\n");
                     }
-                }
-                if (timerCloseFlag == true){
-                    timer.cancel();
                 }
             }
         }, 0, 1000);
-*/
     }
-
     ////////////////////////////////////////MENU BAR FUNCTIONS////////////////////////////////////////
     public void clear() {
         textArea.setText("");
@@ -213,11 +212,11 @@ public class ClientConnection extends Thread {
     }
 
     ////////////////////////////////////////COMMAND FUNCTIONS////////////////////////////////////////
-    public synchronized Vector<String> sendDIRCmd() { //sends DIR command, receives list of files in server storage
+    private synchronized Vector<String> sendDIRCmd(){ //sends DIR command, receives list of files in server storage
         try {
             // Initializes sockets and in and out streams
             Vector<String> stringList = new Vector<>(); //Flexible Array
-            Socket socket = new Socket(hostName, port);
+            socket = new Socket(hostName, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             out.println("DIR"); // Sends command
@@ -231,7 +230,10 @@ public class ClientConnection extends Thread {
             in.close();
             socket.close();
             return stringList; // returns List
-        }catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("IOE "+cNum+": " +  err);
+        }
         return null; // returns null if not
     }
 
@@ -318,7 +320,8 @@ public class ClientConnection extends Thread {
     */
     public synchronized void cancelTimer(){
         timerCloseFlag = true;
-        //System.out.println("Client Num " + cNum+", Timer Closed");
+        timer.cancel();
+        timer.purge();
     }
     public int getClientNum(){return cNum;}
     public BorderPane getLayout() { // Returns layout value used for scene
