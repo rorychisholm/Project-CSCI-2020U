@@ -1,16 +1,9 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
-
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application
@@ -43,9 +36,15 @@ public class Main extends Application
             scene[i] = new Scene(clientClass[i].getLayout(), 600, 600);
             clientStages[i].setScene(scene[i]);
             clientStages[i].show();
-            clientStages[i].setOnCloseRequest(e -> { // Checks that all clients are closed before close the server thread
+            // Checks that all clients are closed before close the server thread
+            clientStages[i].setOnCloseRequest(e -> {
                 boolean closeFlag = true;
+                System.out.println();//.cancelTimer();
                 for (int j = 0; j < numberOfClients; j++) {
+                    if((clientClass[j].getLayout()) == (((Stage)e.getSource()).getScene().getRoot())){
+                        clientClass[j].cancelTimer();
+                        //System.out.println("Client: " + clientClass[j].getClientNum());
+                    }
                     if (clientClass[j].isAlive()) {
                         closeFlag = false;
                     }
