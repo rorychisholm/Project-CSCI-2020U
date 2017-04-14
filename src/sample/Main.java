@@ -11,6 +11,7 @@ public class Main extends Application
 
     static int port = 8080; // Port Number
     static String hostName = "127.0.0.1"; // Return host address
+    int closingFlags;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -19,7 +20,7 @@ public class Main extends Application
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         int numberOfClients = 2; // Number of Clients(changing the number runs more clients at once)
-
+        closingFlags = 0;
         ClientConnectionServer server = new ClientConnectionServer(port); // Initializes Server Thread
         server.start(); // Runs Server Thread
 
@@ -38,18 +39,14 @@ public class Main extends Application
             clientStages[i].show();
             // Checks that all clients are closed before close the server thread
             clientStages[i].setOnCloseRequest(e -> {
-                boolean closeFlag = true;
-                System.out.println();//.cancelTimer();
+                closingFlags++;
                 for (int j = 0; j < numberOfClients; j++) {
                     if((clientClass[j].getLayout()) == (((Stage)e.getSource()).getScene().getRoot())){
                         clientClass[j].cancelTimer();
                         //System.out.println("Client: " + clientClass[j].getClientNum());
                     }
-                    if (clientClass[j].isAlive()) {
-                        closeFlag = false;
-                    }
                 }
-                if (closeFlag == true) {
+                if (closingFlags >= numberOfClients) {
                     server.quit(); // Closes server thread
                 }
             });
