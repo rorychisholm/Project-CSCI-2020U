@@ -1,4 +1,5 @@
 *.class
-
+<<<<<<< HEAD
+=======
 ServerStorage/Logs/*
-
+>>>>>>> a56e9815f5d5cc0c6c98e18fda88d1e43d02800c
