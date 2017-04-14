@@ -1,24 +1,20 @@
 package sample;
 
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.System.err;
@@ -29,24 +25,20 @@ import static java.lang.System.err;
  */
 public class ClientConnection extends Thread{
     private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
     private BorderPane layout;
     private Stage primaryStage; // Stage being used
     private int port, cNum; // Port number and number of clients
-    private String hostName, clientStorageRoot;
+    private String hostName, fileOpen;
     private TextArea textArea;
     private Timer timer;
-    private boolean timerCloseFlag;
 
     public ClientConnection(int port, String hostName, Stage stage, int cNum) {
         this.port = port;
         this.hostName = hostName;
         this.primaryStage = stage;
         this.cNum = cNum;
-        this.clientStorageRoot = "clientStorage";
         this.timer = new Timer();
-        this.timerCloseFlag = false;
+        this.fileOpen = "RoomieShoppingList.txt";
     }
 
     @Override
@@ -116,7 +108,7 @@ public class ClientConnection extends Thread{
             @Override
             public void handle(ActionEvent e){
                 //updateList(clientList, serverList);
-                Vector<String> temp = sendDIRCmd();
+                Vector<String> temp = getUpdateCmd();
                 for (int i = 0; i < temp.size();i++){
                     textArea.appendText(temp.get(i));
                 }
@@ -135,7 +127,11 @@ public class ClientConnection extends Thread{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+<<<<<<< HEAD
                 Vector<String> temp = sendDIRCmd();
+=======
+                Vector<String> temp = getUpdateCmd();
+>>>>>>> bac8ea78b2b20a61db15726db1efb2afdd0909ff
                 if (temp != null){
                     for (int i = 0; i < temp.size(); i++) {
                         textArea.appendText(temp.get(i) + "\n");
@@ -212,19 +208,37 @@ public class ClientConnection extends Thread{
     }
 
     ////////////////////////////////////////COMMAND FUNCTIONS////////////////////////////////////////
+<<<<<<< HEAD
     private synchronized Vector<String> sendDIRCmd(){ //sends DIR command, receives list of files in server storage
+=======
+    private synchronized Vector<String> getUpdateCmd(){
+>>>>>>> bac8ea78b2b20a61db15726db1efb2afdd0909ff
         try {
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
+            Date date = new Date();
+            // Command Format: "CMD,DATE,CLIENTNUM,OPENFILENAME"
+            String cmd = "UPDATE";
+            cmd += ","+ dateFormat.format(date);
+            cmd += ","+ cNum;
+            cmd += ","+ fileOpen;
             // Initializes sockets and in and out streams
+<<<<<<< HEAD
             Vector<String> stringList = new Vector<>(); //Flexible Array
+=======
+>>>>>>> bac8ea78b2b20a61db15726db1efb2afdd0909ff
             socket = new Socket(hostName, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //
             PrintWriter out = new PrintWriter(socket.getOutputStream());
-            out.println("DIR"); // Sends command
+            out.println(cmd); // Sends command
             out.flush(); // Flushes printwriter
             String response; //
+
+            Vector<String> stringList = new Vector<>(); //Flexible Array
             while ((response = in.readLine()) != null){// Reads response line by line
                 stringList.add(response);
             }
+
             // Closes the connection
             out.close();
             in.close();
@@ -236,6 +250,16 @@ public class ClientConnection extends Thread{
         }
         return null; // returns null if not
     }
+
+    public synchronized void cancelTimer(){
+        timer.cancel();
+        timer.purge();
+    }
+    public BorderPane getLayout() { // Returns layout value used for scene
+
+        return this.layout;
+    }
+}
 
     /*
     public void uploadFileCmd(String fileName) { //sends UPLOAD command
@@ -309,14 +333,15 @@ public class ClientConnection extends Thread{
     }
 
     public void updateList(ListView<String> clientList, ListView<String> serverList) {
-        // Updates observable list and calls listFiles and sendDIRCmd
+        // Updates observable list and calls listFiles and getUpdateCmd
         System.out.println("Updating...");
         observClieList = listFiles();
-        //observServList = sendDIRCmd();
+        //observServList = getUpdateCmd();
         clientList.setItems(observClieList);
         serverList.setItems(observServList);
         System.out.println(" ...Done");
     }
+<<<<<<< HEAD
     */
     public synchronized void cancelTimer(){
         timerCloseFlag = true;
@@ -329,3 +354,6 @@ public class ClientConnection extends Thread{
         return this.layout;
     }
 }
+=======
+    */
+>>>>>>> bac8ea78b2b20a61db15726db1efb2afdd0909ff

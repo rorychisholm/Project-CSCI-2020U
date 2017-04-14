@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 Bacon for breakfast
 Eggs for lunch
 Ham for dinner
 Ice cream for dessert
+=======
+Eggs & Bacon
+Bread
+Milk
+Cheese
+>>>>>>> bac8ea78b2b20a61db15726db1efb2afdd0909ff
