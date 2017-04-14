@@ -26,7 +26,7 @@ public class ClientConnectionHandler implements Runnable {
             out = new PrintWriter(os);
             // Waits for command
             String request = null;
-            while (request == null) {
+            while (request == null){
                 request = in.readLine();
             }
             //Sorts command into array
@@ -73,21 +73,28 @@ public class ClientConnectionHandler implements Runnable {
     }
 
     private void updateLogs(String[] cmdParts, String logMessage){
-        /*File serverLog = new File("Logs", "serverLogs.txt");
-        if (!serverLog.exists()) { // Overwrites files
-            serverLog.createNewFile();
-        }
-        File logFile = new File("Logs", cmdParts[3]);
-        if (!logFile.exists()) { // Overwrites files
-            logFile.createNewFile();
-        }
-        String toSend = "", line = "";
-        BufferedReader in = new BufferedReader(new FileReader(file));
-        while ((line = in.readLine()) != null) {
-            toSend += line;
-            toSend += "\n";
-        }
-        out.print(toSend);*/
+        /*y {
+            File serverLog = new File("Logs", "ServerLogs.txt"); // Makes overall Log file for server
+            if (!serverLog.exists()) { // Overwrites files
+                serverLog.createNewFile();
+            }
+            String fileName;
+            if(cmdParts[3].contains(".")){
+                fileName = cmdParts[3].substring(0, cmdParts[3].lastIndexOf('.')) + "-FileLog.txt";
+            }else{
+                fileName = cmdParts[3] + "-FileLog.txt";
+            }
+            File logFile = new File("Logs", fileName);
+            if (!logFile.exists()){ // Overwrites files
+                logFile.createNewFile();
+            }
+            FileWriter fo = new FileWriter(logFile,true);
+            fout.println();
+
+            out.print(toSend);
+        }catch(IOException e){
+
+        }*/
     }
 
     private void cmdUPLOAD(String fileName) throws IOException { // Handles UPLOAD command

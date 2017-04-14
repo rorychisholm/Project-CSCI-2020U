@@ -218,7 +218,7 @@ public class ClientConnection extends Thread{
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             out.println(cmd); // Sends command
-            out.flush(); // Flushes printwriter
+            out.flush(); // Flushes Printwriter
             String response; //
 
             Vector<String> stringList = new Vector<>(); //Flexible Array
