@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -243,7 +244,6 @@ public class ClientConnection extends Thread{
         timer.purge();
     }
     public BorderPane getLayout() { // Returns layout value used for scene
-
         return this.layout;
     }
 }
@@ -329,3 +329,4 @@ public class ClientConnection extends Thread{
         System.out.println(" ...Done");
     }
     */
+

@@ -1,5 +1,7 @@
 package sample;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -37,9 +39,9 @@ public class ClientConnectionHandler implements Runnable {
             if (command.equalsIgnoreCase("UPDATE")){
                 cmdUpdate(requestParts);
             }else if (command.equalsIgnoreCase("UPLOAD")) {
-                cmdUPLOAD(requestParts[1]);
+                //cmdUPLOAD(requestParts[1]);
             } else if (command.equalsIgnoreCase("DOWNLOAD")) {
-                cmdDOWNLOAD(requestParts[1]);
+                //cmdDOWNLOAD(requestParts[1]);
             } else {
                 System.out.println("CMD not found.");
             }
@@ -53,17 +55,14 @@ public class ClientConnectionHandler implements Runnable {
 
     private void cmdUpdate(String[] cmdParts) { // Handles DIR command, sends list of files in a string
         try {
-            String toSend = "";
-            File file = new File(ROOT);//, cmdParts[3]
-            if (!file.exists()) { // Overwrites files
-                file.createNewFile();
-            }
-            File fileList[] = file.listFiles();
-            for (int i = 0; i < fileList.length; i++) {
-                toSend += fileList[i].getName();
-                if (i != (fileList.length - 1)) {
-                    toSend += " ";
-                }
+            String toSend = "", line = "";
+            File file = new File(ROOT, cmdParts[3]);
+            BufferedReader in = new BufferedReader(new FileReader(file));
+            String newLineChar = System.getProperty("line.separator");
+            while ((line = in.readLine()) != null)
+            {
+                toSend += line;
+                toSend += newLineChar;
             }
             out.print(toSend);
             out.flush();
@@ -73,7 +72,7 @@ public class ClientConnectionHandler implements Runnable {
     }
 
     private void updateLogs(String[] cmdParts, String logMessage){
-        /*y {
+        /* {
             File serverLog = new File("Logs", "ServerLogs.txt"); // Makes overall Log file for server
             if (!serverLog.exists()) { // Overwrites files
                 serverLog.createNewFile();
@@ -92,11 +91,10 @@ public class ClientConnectionHandler implements Runnable {
             fout.println();
 
             out.print(toSend);
-        }catch(IOException e){
-
-        }*/
+        }catch(IOException e){}*/
     }
 
+        /*
     private void cmdUPLOAD(String fileName) throws IOException { // Handles UPLOAD command
         try {
             // open streams
@@ -136,5 +134,5 @@ public class ClientConnectionHandler implements Runnable {
         }
         out.print(toSend);
         out.flush();
-    }
+    }*/
 }
