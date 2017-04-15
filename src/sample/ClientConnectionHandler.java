@@ -5,6 +5,8 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import java.io.*;
 import java.net.Socket;
 
+import static java.lang.System.err;
+
 /**
  * Created by 100560820 on 3/27/2017.
  */
@@ -14,6 +16,7 @@ public class ClientConnectionHandler implements Runnable {
     public static String ROOT = "ServerStorage"; // Root for server storage
     private Socket socket;
     private PrintWriter out;
+    BufferedReader sin;
 
     public ClientConnectionHandler(Socket socket) {
         this.socket = socket;
@@ -22,14 +25,13 @@ public class ClientConnectionHandler implements Runnable {
     public void run() {
         try {
             // opens streams
-            InputStream is = socket.getInputStream();
-            BufferedReader in = new BufferedReader(new InputStreamReader(is));
+            sin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             OutputStream os = socket.getOutputStream();
             out = new PrintWriter(os);
             // Waits for command
             String request = null;
             while (request == null){
-                request = in.readLine();
+                request = sin.readLine();
             }
             //Sorts command into array
             String[] requestParts = request.split(",");// CMD Uri
@@ -55,24 +57,27 @@ public class ClientConnectionHandler implements Runnable {
 
     private void cmdUpdate(String[] cmdParts) { // Handles DIR command, sends list of files in a string
         try {
-            String toSend = "", line = "";
+            String toSend = "test", lineS, lineF;
             File file = new File(ROOT, cmdParts[3]);
-            BufferedReader in = new BufferedReader(new FileReader(file));
+            BufferedReader fin = new BufferedReader(new FileReader(file));
+            //BufferedReader sin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String newLineChar = System.getProperty("line.separator");
-            while ((line = in.readLine()) != null)
-            {
-                toSend += line;
-                toSend += newLineChar;
+            out.print("Found"+newLineChar);
+            out.flush();
+            System.out.println("Test");
+            while ((lineS = sin.readLine()) != null || (lineF = fin.readLine()) != null){
+                System.out.println(lineS +" Server");
+                System.out.println(lineS +" Server");
             }
             out.print(toSend);
             out.flush();
-        } catch (IOException e) {
+        }catch(IOException e){
 
         }
     }
 
     private void updateLogs(String[] cmdParts, String logMessage){
-        /* {
+        try{
             File serverLog = new File("Logs", "ServerLogs.txt"); // Makes overall Log file for server
             if (!serverLog.exists()) { // Overwrites files
                 serverLog.createNewFile();
@@ -87,11 +92,19 @@ public class ClientConnectionHandler implements Runnable {
             if (!logFile.exists()){ // Overwrites files
                 logFile.createNewFile();
             }
-            FileWriter fo = new FileWriter(logFile,true);
-            fout.println();
-
-            out.print(toSend);
-        }catch(IOException e){}*/
+            String message = "";
+            for (int i = 0; i < cmdParts.length; i++){
+                message += cmdParts[i] + "_";
+            }
+            message += "LogMessage: "+logMessage;
+            FileWriter fSout = new FileWriter(logFile,true);
+            FileWriter fout = new FileWriter(logFile,true);
+            fSout.write(message);
+            fSout.close();
+            fout.write(message);
+            fout.close();
+        }catch(IOException e){
+        }
     }
 
         /*

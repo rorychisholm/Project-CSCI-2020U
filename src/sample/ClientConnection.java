@@ -206,6 +206,9 @@ public class ClientConnection extends Thread{
     ////////////////////////////////////////COMMAND FUNCTIONS////////////////////////////////////////
     private synchronized Vector<String> getUpdateCmd(){
         try {
+            socket = new Socket(hostName, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
             Date date = new Date();
@@ -215,18 +218,26 @@ public class ClientConnection extends Thread{
             cmd += ","+ cNum;
             cmd += ","+ fileOpen;
             // Initializes sockets and in and out streams
-            socket = new Socket(hostName, port);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
+
             out.println(cmd); // Sends command
             out.flush(); // Flushes Printwriter
+
             String response; //
-
             Vector<String> stringList = new Vector<>(); //Flexible Array
-            while ((response = in.readLine()) != null){// Reads response line by line
-                stringList.add(response);
-            }
+            textArea.setText("Cheesey Cheese\nHam");
+            String[] textLines = (textArea.getText()).split("\n");// CMD Uri
 
+            if((response = in.readLine()).equalsIgnoreCase("Found")){
+                for(int i = 0; i < textLines.length; i++){
+                    System.out.println(textLines[i]+" Client "+textLines.length);
+                    out.println(textLines[i]);
+                    out.flush(); // Flushes Printwriter
+                }
+                System.out.println("Test5");
+                while ((response = in.readLine()) != null){// Reads response line by line
+                    stringList.add(response);
+                }
+            }
             // Closes the connection
             out.close();
             in.close();

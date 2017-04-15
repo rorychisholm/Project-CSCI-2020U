@@ -19,7 +19,7 @@ public class Main extends Application
     {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-        int numberOfClients = 2; // Number of Clients(changing the number runs more clients at once)
+        int numberOfClients = 1; // Number of Clients(changing the number runs more clients at once)
         closingFlags = 0;
         ClientConnectionServer server = new ClientConnectionServer(port); // Initializes Server Thread
         server.start(); // Runs Server Thread
