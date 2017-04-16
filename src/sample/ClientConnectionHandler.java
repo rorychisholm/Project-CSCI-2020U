@@ -40,11 +40,11 @@ public class ClientConnectionHandler implements Runnable {
             String command = requestParts[0]; // Command Format: "CMD,DATE,CLIENTNUM,OPENFILENAME"
             if (command.equalsIgnoreCase("UPDATE")){
                 cmdUpdate(requestParts);
-            }else if (command.equalsIgnoreCase("UPLOAD")) {
-                //cmdUPLOAD(requestParts[1]);
-            } else if (command.equalsIgnoreCase("DOWNLOAD")) {
-                //cmdDOWNLOAD(requestParts[1]);
-            } else {
+            }else if (command.equalsIgnoreCase("UPLOAD")){
+                // cmdUPLOAD(requestParts[1]);
+            } else if (command.equalsIgnoreCase("DOWNLOAD")){
+                // cmdDOWNLOAD(requestParts[1]);
+            } else{
                 System.out.println("CMD not found.");
             }
             socket.close();
@@ -57,29 +57,34 @@ public class ClientConnectionHandler implements Runnable {
 
     private void cmdUpdate(String[] cmdParts) { // Handles DIR command, sends list of files in a string
         try {
-            String toSend = "test", lineS, lineF;
+            String toSend = "test", fileChanges, lineF = "";
             File file = new File(ROOT, cmdParts[3]);
+            if (!file.exists()){ // Overwrites files
+                file.createNewFile();
+            }
             BufferedReader fin = new BufferedReader(new FileReader(file));
-            //BufferedReader sin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String newLineChar = System.getProperty("line.separator");
             out.print("Found"+newLineChar);
             out.flush();
-            System.out.println("Test");
-            while ((lineS = sin.readLine()) != null || (lineF = fin.readLine()) != null){
-                System.out.println(lineS +" Server");
-                System.out.println(lineS +" Server");
+
+            fileChanges = sin.readLine();
+            updateLogs(cmdParts, fileChanges);
+            /*
+            while (lineF = fin.readLine()) != null){ // Edit to file
             }
+            */
+            fin.close();
             out.print(toSend);
             out.flush();
         }catch(IOException e){
-
         }
     }
 
     private void updateLogs(String[] cmdParts, String logMessage){
         try{
-            File serverLog = new File("Logs", "ServerLogs.txt"); // Makes overall Log file for server
-            if (!serverLog.exists()) { // Overwrites files
+            System.out.println("Testing");
+            File serverLog = new File(ROOT+"/Logs", "ServerLogs.txt"); // Makes overall Log file for server
+            if (!serverLog.exists()) {
                 serverLog.createNewFile();
             }
             String fileName;
@@ -88,7 +93,7 @@ public class ClientConnectionHandler implements Runnable {
             }else{
                 fileName = cmdParts[3] + "-FileLog.txt";
             }
-            File logFile = new File("Logs", fileName);
+            File logFile = new File(ROOT+"/Logs", fileName);
             if (!logFile.exists()){ // Overwrites files
                 logFile.createNewFile();
             }
@@ -97,11 +102,11 @@ public class ClientConnectionHandler implements Runnable {
                 message += cmdParts[i] + "_";
             }
             message += "LogMessage: "+logMessage;
-            FileWriter fSout = new FileWriter(logFile,true);
+            FileWriter fSout = new FileWriter(serverLog,true);
             FileWriter fout = new FileWriter(logFile,true);
-            fSout.write(message);
+            fSout.write(message+System.getProperty("line.separator"));
             fSout.close();
-            fout.write(message);
+            fout.write(message+System.getProperty("line.separator"));
             fout.close();
         }catch(IOException e){
         }

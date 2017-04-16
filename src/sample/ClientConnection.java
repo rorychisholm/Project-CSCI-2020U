@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -10,8 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.io.*;
-import java.net.ConnectException;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,11 +20,10 @@ import java.util.*;
 
 import static java.lang.System.err;
 
-
 /**
  * Created by 100560820 on 3/28/2017.
  */
-public class ClientConnection extends Thread{
+public class ClientConnection extends Thread {
     private Socket socket;
     private BorderPane layout;
     private Stage primaryStage; // Stage being used
@@ -31,6 +31,10 @@ public class ClientConnection extends Thread{
     private String hostName, fileOpen;
     private TextArea textArea;
     private Timer timer;
+    private Vector<KeyCode> keyTracker;
+    private Vector<Integer> caretTracker;
+    private Vector<Boolean> shiftTracker;
+
 
     public ClientConnection(int port, String hostName, Stage stage, int cNum) {
         this.port = port;
@@ -38,7 +42,10 @@ public class ClientConnection extends Thread{
         this.primaryStage = stage;
         this.cNum = cNum;
         this.timer = new Timer();
-        this.fileOpen = "RoomieShoppingList.txt";
+        this.fileOpen = "TextFile.txt";
+        this.keyTracker = new Vector();
+        this.caretTracker = new Vector();
+        this.shiftTracker = new Vector();
     }
 
     @Override
@@ -88,6 +95,7 @@ public class ClientConnection extends Thread{
         uploadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                codeCreater(keyTracker, caretTracker, shiftTracker);
             }
         });
         editArea.add(uploadButton, 0, 0);
@@ -106,29 +114,42 @@ public class ClientConnection extends Thread{
         Button updateButton = new Button("Update");
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e){
+            public void handle(ActionEvent e) {
                 //updateList(clientList, serverList);
                 Vector<String> temp = getUpdateCmd();
-                for (int i = 0; i < temp.size();i++){
+                /*
+                for (int i = 0; i < temp.size(); i++) {
                     textArea.appendText(temp.get(i));
                 }
+                */
             }
         });
         editArea.add(updateButton, 2, 0);
         ////////////////////////////////////////END OF BUTTONS////////////////////////////////////////
 
+        //Here the handler
+        textArea.setOnKeyPressed((event) -> {
+            if (event.getCode().isDigitKey() || event.getCode().isLetterKey() || event.getCode().isWhitespaceKey()) {
+                System.out.println(textArea.getCaretPosition() + ", " + event.getCode().getName() + ", " + event.isShiftDown());
+                caretTracker.add(textArea.getCaretPosition());
+                shiftTracker.add(event.isShiftDown());
+                keyTracker.add(event.getCode());
+            }
+
+        });
         layout = new BorderPane(); // sets layout
         layout.setTop(menuBar);
         layout.setCenter(textArea);
         layout.setBottom(editArea);
-        timerStart();
+        //timerStart();
     }
-    private void timerStart(){
+
+    private void timerStart() {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Vector<String> temp = getUpdateCmd();
-                if (temp != null){
+                if (temp != null) {
                     for (int i = 0; i < temp.size(); i++) {
                         textArea.appendText(temp.get(i) + "\n");
                     }
@@ -136,6 +157,7 @@ public class ClientConnection extends Thread{
             }
         }, 0, 1000);
     }
+
     ////////////////////////////////////////MENU BAR FUNCTIONS////////////////////////////////////////
     public void clear() {
         textArea.setText("");
@@ -204,7 +226,7 @@ public class ClientConnection extends Thread{
     }
 
     ////////////////////////////////////////COMMAND FUNCTIONS////////////////////////////////////////
-    private synchronized Vector<String> getUpdateCmd(){
+    private synchronized Vector<String> getUpdateCmd() {
         try {
             socket = new Socket(hostName, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -214,46 +236,101 @@ public class ClientConnection extends Thread{
             Date date = new Date();
             // Command Format: "CMD,DATE,CLIENTNUM,OPENFILENAME"
             String cmd = "UPDATE";
-            cmd += ","+ dateFormat.format(date);
-            cmd += ","+ cNum;
-            cmd += ","+ fileOpen;
+            cmd += "," + dateFormat.format(date);
+            cmd += "," + cNum;
+            cmd += "," + fileOpen;
             // Initializes sockets and in and out streams
-
             out.println(cmd); // Sends command
             out.flush(); // Flushes Printwriter
 
-            String response; //
-            Vector<String> stringList = new Vector<>(); //Flexible Array
-            textArea.setText("Cheesey Cheese\nHam");
-            String[] textLines = (textArea.getText()).split("\n");// CMD Uri
 
-            if((response = in.readLine()).equalsIgnoreCase("Found")){
-                for(int i = 0; i < textLines.length; i++){
-                    System.out.println(textLines[i]+" Client "+textLines.length);
-                    out.println(textLines[i]);
-                    out.flush(); // Flushes Printwriter
-                }
-                System.out.println("Test5");
-                while ((response = in.readLine()) != null){// Reads response line by line
+            String response;
+            Vector<String> stringList = new Vector<>(); //Flexible Array
+            if ((response = in.readLine()).equalsIgnoreCase("Found")) {
+                //Gets code from vectors for key inputs, and send it to server
+                out.println(codeCreater(keyTracker, caretTracker, shiftTracker));
+                out.flush();
+                /*while ((response = in.readLine()) != null) { // Reads response line by line
                     stringList.add(response);
-                }
+                }*/
             }
+
+
             // Closes the connection
-            out.close();
-            in.close();
             socket.close();
             return stringList; // returns List
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IOE "+cNum+": " +  err);
+            System.out.println("IOE " + cNum + ": " + err);
         }
         return null; // returns null if not
     }
+    /*
+    codeCreator ~Rory
+    ---Done---
+    - Makes added words into a Code
+    ---To Do---
+    - Needs Deletion Functionality
+        - Backspaces only work if over written
+        - Cannot Delete Text
+    - Needs text shifting functionality
+     */
+    private String codeCreater(Vector<KeyCode> keys, Vector<Integer> caret, Vector<Boolean> shiftDown) {
+        Map<Integer, String> map = new TreeMap<>();
+        Vector<String> addText = new Vector<>();
+        String temp, code;
+        int max = 0, index = 0, tempI = 0;
+        ;
+        for (int i = 0; i < caret.size(); i++) {
+            if (!shiftDown.get(i)) {
+                temp = keys.get(i).impl_getChar().toLowerCase();
+            } else {
+                temp = keys.get(i).impl_getChar();
+            }
+            map.put(caret.get(i), temp);
+            if (caret.get(i) > max) {
+                max = caret.get(i);
+            }
+        }
+        temp = "";
+        for (int i = 0; i <= max; i++) {
+            if (map.get(i) != null) {
+                temp += map.get(i);
+                //System.out.print(map.get(i));
+                if (i == max) {
+                    addText.add(tempI + "->" + (i) + ":\"" + temp + "\"");
+                    //System.out.println(tempI + "->" + (i)+":\""+temp+"\"");
+                    temp = "";
+                }
+            } else if ((i > 0) && (map.get(i - 1) != null)) {
+                addText.add(tempI + "->" + (i) + ":\"" + temp + "\"");
+                //System.out.println(tempI + "->" + (i)+":\""+temp+"\"");
+                temp = "";
+            }
+            if ((i > 0) && (map.get(i - 1) == null)) {
+                tempI = i;
+            }
+        }
+        code = "ADD:[";
+        for (int i = 0; i < addText.size(); i++) {
+            code += addText.get(i);
+            if (i < addText.size() - 1) {
+                code += "|";
+            }
+        }
+        code += "]";
+        keyTracker.clear();
+        caretTracker.clear();
+        shiftTracker.clear();
+        System.out.println(code);
+        return code;
+    }
 
-    public synchronized void cancelTimer(){
+    public synchronized void cancelTimer() {
         timer.cancel();
         timer.purge();
     }
+
     public BorderPane getLayout() { // Returns layout value used for scene
         return this.layout;
     }
