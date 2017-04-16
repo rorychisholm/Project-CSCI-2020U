@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -14,7 +15,12 @@ public class ClientConnectionServer extends Thread{
 
     public ClientConnectionServer(int port) throws IOException {
         this.port = port;
-        serverSocket = new ServerSocket(port);
+        try{
+            serverSocket = new ServerSocket(port);
+        }catch(BindException e){
+            System.err.println("Socket in use");
+            System.exit(0);
+        }
     }
 
     public void handleRequests() throws IOException {

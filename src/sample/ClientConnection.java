@@ -127,16 +127,30 @@ public class ClientConnection extends Thread {
         editArea.add(updateButton, 2, 0);
         ////////////////////////////////////////END OF BUTTONS////////////////////////////////////////
 
-        //Here the handler
+
+        /*
+        textArea.setOnKeyPressed ~Rory
+        ---To Do---
+            - getCaretPosition() doesn't catch what line it's at.
+            - isShiftDown() doesn't catch caps lock
+        */
+        // When ia key is pressed in the text area the key the placement and if shift is being held is recorded
         textArea.setOnKeyPressed((event) -> {
+            // if key pressed is a letter, number, or white space record it
             if (event.getCode().isDigitKey() || event.getCode().isLetterKey() || event.getCode().isWhitespaceKey()) {
-                System.out.println(textArea.getCaretPosition() + ", " + event.getCode().getName() + ", " + event.isShiftDown());
+                //System.out.println(textArea.getCaretPosition() + ", " + event.getCode().getName() + ", " + event.isShiftDown());
                 caretTracker.add(textArea.getCaretPosition());
                 shiftTracker.add(event.isShiftDown());
                 keyTracker.add(event.getCode());
+                vectorShift(textArea.getCaretPosition(),true);
+            }else if(event.getCode() == KeyCode.BACK_SPACE && caretTracker.contains(textArea.getCaretPosition())){
+                shiftTracker.remove(caretTracker.indexOf(textArea.getCaretPosition()));
+                keyTracker.remove(caretTracker.indexOf(textArea.getCaretPosition()));
+                caretTracker.remove(textArea.getCaretPosition());
+                vectorShift(textArea.getCaretPosition(),false);
             }
-
         });
+
         layout = new BorderPane(); // sets layout
         layout.setTop(menuBar);
         layout.setCenter(textArea);
@@ -232,17 +246,15 @@ public class ClientConnection extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream());
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
-            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm"); // Sets format for date and time
+            Date date = new Date(); // Gets current date and time
             // Command Format: "CMD,DATE,CLIENTNUM,OPENFILENAME"
             String cmd = "UPDATE";
             cmd += "," + dateFormat.format(date);
             cmd += "," + cNum;
             cmd += "," + fileOpen;
-            // Initializes sockets and in and out streams
             out.println(cmd); // Sends command
             out.flush(); // Flushes Printwriter
-
 
             String response;
             Vector<String> stringList = new Vector<>(); //Flexible Array
@@ -280,9 +292,11 @@ public class ClientConnection extends Thread {
         Vector<String> addText = new Vector<>();
         String temp, code;
         int max = 0, index = 0, tempI = 0;
-        ;
+        // Puts the vectors into a map
         for (int i = 0; i < caret.size(); i++) {
-            if (!shiftDown.get(i)) {
+            if((keys.get(i).impl_getChar()).equals(KeyCode.ENTER.impl_getChar())){
+                temp = "\\n\\";
+            }else if (!shiftDown.get(i)) {
                 temp = keys.get(i).impl_getChar().toLowerCase();
             } else {
                 temp = keys.get(i).impl_getChar();
@@ -326,6 +340,22 @@ public class ClientConnection extends Thread {
         return code;
     }
 
+    public void vectorShift(int newCaret,boolean down){
+        if(down){
+            for (int i = 0; i < caretTracker.size(); i++) {
+                if (newCaret < caretTracker.get(i)){
+                    caretTracker.set(i,caretTracker.get(i)+1);
+                }
+            }
+        }else{
+            for (int i = 0; i < caretTracker.size(); i++) {
+                if (newCaret <= caretTracker.get(i)){
+                    caretTracker.set(i,caretTracker.get(i)-1);
+                }
+            }
+        }
+    }
+
     public synchronized void cancelTimer() {
         timer.cancel();
         timer.purge();
@@ -335,7 +365,7 @@ public class ClientConnection extends Thread {
         return this.layout;
     }
 }
-
+///////////////////////////////////////EXTRA CODE///////////////////////////////////////
     /*
     public void uploadFileCmd(String fileName) { //sends UPLOAD command
         try {
