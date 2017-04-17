@@ -159,7 +159,7 @@ public class ClientConnectionHandler implements Runnable {
         }
     }
 
-        /*
+    /*
     private void cmdUPLOAD(String fileName) throws IOException { // Handles UPLOAD command
         try {
             // open streams
@@ -199,5 +199,6 @@ public class ClientConnectionHandler implements Runnable {
         }
         out.print(toSend);
         out.flush();
-    }*/
+    }
+    */
 }
