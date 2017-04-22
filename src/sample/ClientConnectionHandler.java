@@ -2,8 +2,6 @@ package sample;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.Vector;
 
 /**
@@ -39,10 +37,8 @@ public class ClientConnectionHandler implements Runnable {
             String command = requestParts[0]; // Command Format: "CMD,DATE,CLIENTNUM,OPENFILENAME"
             if (command.equalsIgnoreCase("UPDATE")) {
                 cmdUpdate(requestParts);
-            } else if (command.equalsIgnoreCase("UPLOAD")) {
-                // cmdUPLOAD(requestParts[1]);
-            } else if (command.equalsIgnoreCase("DOWNLOAD")) {
-                // cmdDOWNLOAD(requestParts[1]);
+            } else if (command.equalsIgnoreCase("GET")) {
+                cmdGetFile(requestParts);
             } else {
                 System.out.println("CMD not found.");
             }
@@ -56,10 +52,11 @@ public class ClientConnectionHandler implements Runnable {
 
     private void cmdUpdate(String[] cmdParts) { // Handles DIR command, sends list of files in a string
         try {
-            String toSend = "test", fileChanges, lineF = "";
+            String fileChanges;
             File file = new File(ROOT, cmdParts[3]);
             if (!file.exists()) { // Overwrites files
                 file.createNewFile();
+                cmdParts[2] += "_*NewFile*_";
             }
             BufferedReader fin = new BufferedReader(new FileReader(file));
             String newLineChar = System.getProperty("line.separator");
@@ -70,23 +67,28 @@ public class ClientConnectionHandler implements Runnable {
             updateLogs(cmdParts, fileChanges);
 
             // Be careful of whats inputted to the code doesn't mix up with the message
-            String add = fileChanges.substring(fileChanges.indexOf("ADD:[") + 5, fileChanges.indexOf("]", fileChanges.indexOf("ADD:[")));
+            String add = fileChanges.substring(fileChanges.indexOf("ADD:[") + 5, fileChanges.indexOf("]ADDEND\\\\", fileChanges.indexOf("ADD:[")));
             while (add.contains("\"|")) {
                 System.out.println("Adding: " + add.substring(0, add.indexOf("\"|")+1));
                 addToFile(file, add.substring(0, add.indexOf("\"|")+1));
-
                 add = add.substring(add.indexOf("\"|")+2 , add.length());
             }
             System.out.println("Adding: " + add);
             addToFile(file, add);
 
-            /*
-            while (lineF = fin.readLine()) != null){ // Edit to file
+            String del = fileChanges.substring(fileChanges.indexOf("DEL:[",fileChanges.indexOf("]ADDEND\\\\")) + 5,
+                    fileChanges.indexOf("]DELEND\\\\", fileChanges.indexOf("DEL:[")));
+            while (del.contains("|")) {
+                System.out.println("Deleting: " + del.substring(0, del.indexOf("|")));
+                delFromFile(file, del.substring(0, del.indexOf("|")));
+                del = del.substring(del.indexOf("|")+1 , del.length());
             }
-            */
-            fin.close();
-            out.print(toSend);
+            System.out.println("Deleting: " + del);
+            delFromFile(file, del);
+
+            out.println("done");
             out.flush();
+            fin.close();
         } catch (IOException e) {
         }
     }
@@ -96,6 +98,9 @@ public class ClientConnectionHandler implements Runnable {
             //System.out.println("Testing");
             File serverLog = new File(ROOT + "/Logs", "ServerLogs.txt"); // Makes overall Log file for server
             // if the file doesn't exist, make it
+            if (!new File(ROOT + "/Logs").exists()) {
+                new File(ROOT + "/Logs").mkdir();
+            }
             if (!serverLog.exists()) {
                 serverLog.createNewFile();
             }
@@ -129,21 +134,21 @@ public class ClientConnectionHandler implements Runnable {
 
     public void addToFile(File file, String addCode) throws IOException {
         if (!addCode.isEmpty()){
-            System.out.println("Caret: " + addCode.substring(0,addCode.indexOf("-")));
+            //System.out.println("Caret: " + addCode.substring(0,addCode.indexOf("-")));
             int caret = Integer.parseInt(addCode.substring(0,addCode.indexOf("-"))),caretIndex = 0;
             String message = addCode.substring(addCode.indexOf(":\"") + 2, addCode.length() - 1), line;
             Vector<String> newLines = new Vector<>();
-            System.out.println("Message: " + message);
+            //System.out.println("Message: " + message);
             BufferedReader in = new BufferedReader(new FileReader(file));
                 while((line = in.readLine()) != null){
-                    System.out.println("Caret: "+caret+", Index: "+caretIndex+", Length: "+(caretIndex+line.length()));
-                    if((caretIndex <= caret) && (caret <= caretIndex+line.length())){
-                        System.out.println("line: " + line);
+                    //System.out.println("Caret: "+caret+", Index: "+caretIndex+", Length: "+(caretIndex+line.length()));
+                    if((caretIndex <= caret) && (caret < caretIndex+line.length())){
+                        //System.out.println("line: " + line);
                         line = line.substring(0, caret-caretIndex) + message + line.substring(caret-caretIndex, line.length());
                         System.out.println("new line: " + line);
                     }
                     newLines.add(line);
-                    caretIndex += line.length()+1;
+                    caretIndex += line.length();
                 }
                 if (caretIndex <= caret){
                     newLines.add(message);
@@ -156,6 +161,55 @@ public class ClientConnectionHandler implements Runnable {
                 writer.flush();
             }
             writer.close();
+        }
+    }
+
+    public void delFromFile(File file, String delCode) throws IOException{
+        if (!delCode.isEmpty()){
+            int caretStart,caretEnd,caretIndex = 0;
+            if (delCode.contains("-")){
+                caretStart = Integer.parseInt(delCode.substring(0,delCode.indexOf("-")));
+                caretEnd = Integer.parseInt(delCode.substring(delCode.indexOf(">")+1,delCode.length()));
+            }else{
+                caretStart = Integer.parseInt(delCode.substring(0,delCode.length()));
+                caretEnd = Integer.parseInt(delCode.substring(0,delCode.length()));
+            }
+            System.out.println("CaretStart: " + caretStart +"|CaretEnd: " + caretEnd);
+            String line;
+            Vector<String> newLines = new Vector<>();
+            BufferedReader in = new BufferedReader(new FileReader(file));
+            while((line = in.readLine()) != null){
+                if((caretIndex <= caretStart) && (caretEnd < caretIndex+line.length())){
+                    System.out.println("CaretStart: " + (caretStart-caretIndex) +"|CaretEnd: " + (caretEnd-caretIndex));
+                    line = line.substring(0, caretStart-caretIndex) + line.substring(caretEnd-caretIndex+1, line.length());
+                    System.out.println("new line: " + line);
+                }
+                newLines.add(line);
+                caretIndex += line.length();
+            }
+            FileWriter writer = new FileWriter(file);
+            for (int i = 0; i < newLines.size(); i++) {
+                newLines.set(i,newLines.get(i).replace("\\n\\",System.getProperty("line.separator")));
+                System.out.println("newLine["+i+"]: " + newLines.get(i));
+                writer.write(newLines.get(i)+System.getProperty("line.separator"));
+                writer.flush();
+            }
+            writer.close();
+        }
+    }
+
+    public void cmdGetFile(String[] cmdParts){
+        try{
+        String toSend = "", line = "";
+        File file = new File(ROOT, cmdParts[1]);
+        BufferedReader in = new BufferedReader(new FileReader(file));
+        while ((line = in.readLine()) != null) {
+            toSend += line;
+            toSend += "\n";
+        }
+        out.print(toSend);
+        out.flush();
+        }catch(IOException e){
         }
     }
 

@@ -1,2 +1,0 @@
-Hello, this is a test.
-That is all.

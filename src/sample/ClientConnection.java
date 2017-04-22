@@ -116,7 +116,7 @@ public class ClientConnection extends Thread {
             @Override
             public void handle(ActionEvent e) {
                 //updateList(clientList, serverList);
-                Vector<String> temp = getUpdateCmd();
+                getUpdateCmd();
                 /*
                 for (int i = 0; i < temp.size(); i++) {
                     textArea.appendText(temp.get(i));
@@ -137,17 +137,32 @@ public class ClientConnection extends Thread {
         // When ia key is pressed in the text area the key the placement and if shift is being held is recorded
         textArea.setOnKeyPressed((event) -> {
             // if key pressed is a letter, number, or white space record it
-            if (event.getCode().isDigitKey() || event.getCode().isLetterKey() || event.getCode().isWhitespaceKey()) {
-                //System.out.println(textArea.getCaretPosition() + ", " + event.getCode().getName() + ", " + event.isShiftDown());
-                caretTracker.add(textArea.getCaretPosition());
-                shiftTracker.add(event.isShiftDown());
-                keyTracker.add(event.getCode());
-                vectorShift(textArea.getCaretPosition(),true);
-            }else if(event.getCode() == KeyCode.BACK_SPACE && caretTracker.contains(textArea.getCaretPosition())){
-                shiftTracker.remove(caretTracker.indexOf(textArea.getCaretPosition()));
-                keyTracker.remove(caretTracker.indexOf(textArea.getCaretPosition()));
-                caretTracker.remove(textArea.getCaretPosition());
-                vectorShift(textArea.getCaretPosition(),false);
+            //System.out.println(textArea.getCaretPosition() + ", " + event.getCode().getName());
+            if (!event.getCode().isArrowKey() && !event.getCode().isFunctionKey() && !event.getCode().isModifierKey()
+                    && !event.getCode().isMediaKey() && !event.getCode().isNavigationKey()) {
+                if (event.getCode() == KeyCode.BACK_SPACE) { // if the key is backspace
+                    System.out.println("test 10: " + (textArea.getCaretPosition() - 1));
+                    if (!caretTracker.contains(textArea.getCaretPosition() - 1)) {
+                        System.out.println("test 12:");
+                        caretTracker.add(textArea.getCaretPosition() - 1);
+                        shiftTracker.add(event.isShiftDown());
+                        keyTracker.add(event.getCode());
+                        //vectorShift(textArea.getCaretPosition()-1, false);
+                    } else if (((keyTracker.get(caretTracker.indexOf(textArea.getCaretPosition() - 1))) != (KeyCode.BACK_SPACE))) {
+                        System.out.println("test 11: " + (textArea.getCaretPosition() - 1));
+                        shiftTracker.remove(caretTracker.indexOf(textArea.getCaretPosition() - 1));
+                        keyTracker.remove(caretTracker.indexOf(textArea.getCaretPosition() - 1));
+                        caretTracker.removeElement(textArea.getCaretPosition() - 1);
+                        vectorShift(textArea.getCaretPosition() - 1, false);
+                    }
+                } else {
+                    System.out.println("test 10");
+                    //System.out.println(textArea.getCaretPosition() + ", " + event.getCode().getName() + ", " + event.isShiftDown());
+                    caretTracker.add(textArea.getCaretPosition());
+                    shiftTracker.add(event.isShiftDown());
+                    keyTracker.add(event.getCode());
+                    vectorShift(textArea.getCaretPosition(), true);
+                }
             }
         });
 
@@ -155,6 +170,8 @@ public class ClientConnection extends Thread {
         layout.setTop(menuBar);
         layout.setCenter(textArea);
         layout.setBottom(editArea);
+
+        loadFile();
         //timerStart();
     }
 
@@ -162,14 +179,10 @@ public class ClientConnection extends Thread {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Vector<String> temp = getUpdateCmd();
-                if (temp != null) {
-                    for (int i = 0; i < temp.size(); i++) {
-                        textArea.appendText(temp.get(i) + "\n");
-                    }
-                }
+                getUpdateCmd();
+                loadFile();
             }
-        }, 0, 1000);
+        }, 0, 5000);
     }
 
     ////////////////////////////////////////MENU BAR FUNCTIONS////////////////////////////////////////
@@ -240,7 +253,7 @@ public class ClientConnection extends Thread {
     }
 
     ////////////////////////////////////////COMMAND FUNCTIONS////////////////////////////////////////
-    private synchronized Vector<String> getUpdateCmd() {
+    private synchronized void getUpdateCmd() {
         try {
             socket = new Socket(hostName, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -262,77 +275,121 @@ public class ClientConnection extends Thread {
                 //Gets code from vectors for key inputs, and send it to server
                 out.println(codeCreater(keyTracker, caretTracker, shiftTracker));
                 out.flush();
-                /*while ((response = in.readLine()) != null) { // Reads response line by line
-                    stringList.add(response);
-                }*/
             }
+            while (!(response = in.readLine()).equalsIgnoreCase("done")) {
 
-
+            }
             // Closes the connection
             socket.close();
-            return stringList; // returns List
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("IOE " + cNum + ": " + err);
         }
-        return null; // returns null if not
     }
+
     /*
     codeCreator ~Rory
     ---Done---
     - Makes added words into a Code
     ---To Do---
     - Needs Deletion Functionality
-        - Backspaces only work if over written
+        - Backspaces only work if overwritten
         - Cannot Delete Text
     - Needs text shifting functionality
      */
     private String codeCreater(Vector<KeyCode> keys, Vector<Integer> caret, Vector<Boolean> shiftDown) {
-        Map<Integer, String> map = new TreeMap<>();
+        Map<Integer, String> addMap = new TreeMap<>();
         Vector<String> addText = new Vector<>();
+        Map<Integer, String> delMap = new TreeMap<>();
+        Vector<String> delText = new Vector<>();
         String temp, code;
-        int max = 0, index = 0, tempI = 0;
-        // Puts the vectors into a map
+        int addMax = 0, delMax = 0, tempI = 0, shift = 1;
+        // Puts the vectors into a maps
         for (int i = 0; i < caret.size(); i++) {
-            if((keys.get(i).impl_getChar()).equals(KeyCode.ENTER.impl_getChar())){
-                temp = "\\n\\";
-            }else if (!shiftDown.get(i)) {
-                temp = keys.get(i).impl_getChar().toLowerCase();
+            if (keys.get(i).impl_getCode() == KeyCode.BACK_SPACE.impl_getCode()){
+                delMap.put(caret.get(i), keys.get(i).toString());
+                if (caret.get(i) > delMax) {
+                    delMax = caret.get(i);
+                }
             } else {
-                temp = keys.get(i).impl_getChar();
-            }
-            map.put(caret.get(i), temp);
-            if (caret.get(i) > max) {
-                max = caret.get(i);
+                if ((keys.get(i).impl_getChar()).equals(KeyCode.ENTER.impl_getChar())) {
+                    temp = "\\n\\";
+                } else if (!shiftDown.get(i)) {
+                    temp = keys.get(i).impl_getChar().toLowerCase();
+                } else {
+                    temp = keys.get(i).impl_getChar();
+                }
+                addMap.put(caret.get(i), temp);
+                if (caret.get(i) > addMax) {
+                    addMax = caret.get(i);
+                }
             }
         }
+        // Add Code Maker
         temp = "";
-        for (int i = 0; i <= max; i++) {
-            if (map.get(i) != null) {
-                temp += map.get(i);
+        for (int i = 0; i <= addMax; i++) {
+            if (addMap.get(i) != null) {
+                temp += addMap.get(i);
                 //System.out.print(map.get(i));
-                if (i == max) {
+                if (i == addMax) {
                     addText.add(tempI + "->" + (i) + ":\"" + temp + "\"");
                     //System.out.println(tempI + "->" + (i)+":\""+temp+"\"");
                     temp = "";
                 }
-            } else if ((i > 0) && (map.get(i - 1) != null)) {
+            } else if ((i > 0) && (addMap.get(i - 1) != null)) {
                 addText.add(tempI + "->" + (i) + ":\"" + temp + "\"");
                 //System.out.println(tempI + "->" + (i)+":\""+temp+"\"");
                 temp = "";
             }
-            if ((i > 0) && (map.get(i - 1) == null)) {
+            if ((i > 0) && (addMap.get(i - 1) == null)) {
                 tempI = i;
             }
         }
-        code = "ADD:[";
+
+        // Delete Code Maker
+        tempI = 0;
+        for (int i = 0; i <= delMax; i++) {
+            if (delMap.get(i) != null) {
+                if (i == delMax) {
+                    if ((i > 0) && (delMap.get(i - 1) == null)) {
+                        delText.add(Integer.toString(i - shift));
+                        shift += 1;
+                    } else {
+                        delText.add(tempI - shift + "->" + (i - shift));
+                        shift += (i - tempI);
+                    }
+                }
+            } else if ((i > 0) && (delMap.get(i - 1) != null)) {
+                if ((i > 0) && (delMap.get(i - 2) == null)) {
+                    delText.add(Integer.toString(i - shift));
+                    shift += 1;
+                } else {
+                    delText.add(tempI - shift + "->" + (i - shift - 1));
+                    shift += (i - tempI);
+                }
+            } else if (i == 0) {
+                tempI = i;
+            }
+            if ((i > 0) && (delMap.get(i - 1) == null)) {
+                tempI = i;
+            }
+        }
+        // Code Labeling
+        code = "ADD:["; // eg. ADD:[1->2:"12"|26->30:"Test"]
         for (int i = 0; i < addText.size(); i++) {
             code += addText.get(i);
             if (i < addText.size() - 1) {
                 code += "|";
             }
         }
-        code += "]";
+        code += "]ADDEND\\\\DEL:["; // eg. DEL:[26->30]
+        for (int i = 0; i < delText.size(); i++) {
+            code += delText.get(i);
+            if (i < delText.size() - 1) {
+                code += "|";
+            }
+        }
+        code += "]DELEND\\\\";
         keyTracker.clear();
         caretTracker.clear();
         shiftTracker.clear();
@@ -340,17 +397,38 @@ public class ClientConnection extends Thread {
         return code;
     }
 
-    public void vectorShift(int newCaret,boolean down){
-        if(down){
+    private void loadFile() {
+        try {
+            // Initializes sockets and in and out streams
+            Socket socket = new Socket(hostName, port);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            // sends command
+            out.println("GET" + "," + fileOpen);
+            out.flush();
+            // read the response
+            String response;
+            textArea.setText("");
+            while ((response = in.readLine()) != null) {
+                textArea.appendText(response + "\n");
+            }
+            // close the connection
+            socket.close();
+        } catch (IOException e) {
+        }
+    }
+
+    public void vectorShift(int newCaret, boolean down) {
+        if (down) {
             for (int i = 0; i < caretTracker.size(); i++) {
-                if (newCaret < caretTracker.get(i)){
-                    caretTracker.set(i,caretTracker.get(i)+1);
+                if (newCaret < caretTracker.get(i)) {
+                    caretTracker.set(i, caretTracker.get(i) + 1);
                 }
             }
-        }else{
+        } else {
             for (int i = 0; i < caretTracker.size(); i++) {
-                if (newCaret <= caretTracker.get(i)){
-                    caretTracker.set(i,caretTracker.get(i)-1);
+                if (newCaret <= caretTracker.get(i)) {
+                    caretTracker.set(i, caretTracker.get(i) - 1);
                 }
             }
         }
@@ -364,6 +442,8 @@ public class ClientConnection extends Thread {
     public BorderPane getLayout() { // Returns layout value used for scene
         return this.layout;
     }
+
+
 }
 ///////////////////////////////////////EXTRA CODE///////////////////////////////////////
     /*
