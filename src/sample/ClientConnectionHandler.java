@@ -141,7 +141,7 @@ public class ClientConnectionHandler implements Runnable {
             //System.out.println("Message: " + message);
             BufferedReader in = new BufferedReader(new FileReader(file));
             while ((line = in.readLine()) != null) {
-                //System.out.println("Caret: " + caret + ", New Caret: " + (caret - caretIndex) + ", Index: " + caretIndex + ", Length: " + (caretIndex + line.length()));
+                System.out.println("Caret: " + caret + ", New Caret: " + (caret - caretIndex) + ", Index: " + caretIndex + ", Length: " + (caretIndex + line.length()));
                 if ((caretIndex < caret) && (caret < caretIndex + line.length())) {
                     //System.out.println("line: " + line);
                     line = line.substring(0, caret - caretIndex) + message + line.substring(caret - caretIndex - 1, line.length());
@@ -167,7 +167,14 @@ public class ClientConnectionHandler implements Runnable {
             writer.close();
         }
     }
-
+    /*
+    * - Doesn't handle multi-lines
+    * - not besides that finished for the most part
+    *
+    *
+    *
+    *
+    * */
     public void delFromFile(File file, String delCode) throws IOException {
         if (!delCode.isEmpty()) {
             int caretStart, caretEnd, caretIndex = 0;
@@ -183,18 +190,26 @@ public class ClientConnectionHandler implements Runnable {
             Vector<String> newLines = new Vector<>();
             BufferedReader in = new BufferedReader(new FileReader(file));
             while ((line = in.readLine()) != null) {
-                System.out.println("Start Caret: " + caretStart + ", End Caret: " + caretEnd + ", Index: " + caretIndex + ", Length: " + (caretIndex + line.length()));
-                if ((caretIndex < caretStart) && (caretEnd < caretIndex + line.length())) {
-                    System.out.println("CaretStart: " + (caretStart - caretIndex) + "|CaretEnd: " + (caretEnd - caretIndex));
-                    line = line.substring(0, caretStart - caretIndex) + line.substring(caretEnd - caretIndex, line.length());
-                    System.out.println("new line: " + line);
-                } else if (caretStart == caretIndex) {
-                    line = line.substring(caretEnd - caretIndex, line.length());
-                } else if (caretEnd == caretIndex + line.length()) {
-                    line = line.substring(0, caretStart - caretIndex);
+                System.out.println("Start Caret: " + caretStart + ", End Caret: " + caretEnd
+                        + ", Start New Caret: " + (caretStart - caretIndex) + ", End New Caret: " + (caretEnd - caretIndex)
+                        + ", Index: " + caretIndex + ", Length: " + (line.length())
+                        + ", Total Length: " + (caretIndex + line.length()));
+                if (!line.isEmpty()) {
+                    if ((caretIndex < caretStart) && (caretEnd < caretIndex + line.length())) {
+                        System.out.println("CaretStart: " + (caretStart - caretIndex) + "|CaretEnd: " + (caretEnd - caretIndex));
+                        System.out.println("line: " + line);
+                        line = line.substring(0, caretStart - caretIndex) + line.substring(caretEnd - caretIndex + 1, line.length());
+                        System.out.println("new line: " + line);
+                    } else if (caretStart == caretIndex) {
+                        line = line.substring(caretEnd - caretIndex + 1, line.length());
+                    } else if (caretEnd == (caretIndex + line.length())) {
+                        line = line.substring(0, caretStart - caretIndex);
+                    } else if (caretStart <= caretIndex + line.length() && caretEnd > caretIndex + line.length()) {
+                        // was going to handle multi lines by carrying over
+                    }
                 }
                 newLines.add(line);
-                caretIndex += line.length();
+                caretIndex += line.length()+1;
             }
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < newLines.size(); i++) {

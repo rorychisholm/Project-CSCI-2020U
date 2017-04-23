@@ -34,7 +34,6 @@ public class ClientConnection extends Thread {
     private Vector<KeyCode> keyTracker;
     private Vector<Integer> caretTracker;
     private Vector<Boolean> shiftTracker;
-    //private Vector<Vector<int>> newLineTracker;
 
 
     public ClientConnection(int port, String hostName, Stage stage, int cNum) {
@@ -173,7 +172,7 @@ public class ClientConnection extends Thread {
         layout.setBottom(editArea);
 
         loadFile();
-        //timerStart();
+        //timerStart(); // UNCOMMENT FOR TIMER TO RUN
     }
 
     private void timerStart() {
@@ -294,7 +293,8 @@ public class ClientConnection extends Thread {
     - Makes added words into a Code
     ---To Do---
     - Needs multiline deleting
-    - Needs text shifting functionality
+    - Needs text shifting functionality (I think this works)
+    - Needs to handle adding and deleting at the same time
      */
     private String codeCreater(Vector<KeyCode> keys, Vector<Integer> caret, Vector<Boolean> shiftDown) {
         Map<Integer, String> addMap = new TreeMap<>();
@@ -302,7 +302,7 @@ public class ClientConnection extends Thread {
         Map<Integer, String> delMap = new TreeMap<>();
         Vector<String> delText = new Vector<>();
         String temp, code;
-        int addMax = 0, delMax = 0, tempI = 0, shift = 1;
+        int addMax = 0, delMax = 0, tempI = 0, shift = 0;
         // Puts the vectors into a maps
         for (int i = 0; i < caret.size(); i++) {
             if (keys.get(i).impl_getCode() == KeyCode.BACK_SPACE.impl_getCode()) {
