@@ -1,0 +1,2 @@
+UPDATE_2017/04/23-05:02_1_*NewFile*__TextFile.txt_LogMessage: ADD:[0->18:"bada bing bada bomb"]ADDEND\\DEL:[]DELEND\\
+UPDATE_2017/04/23-05:17_1_*NewFile*__TextFile.txt_LogMessage: ADD:[0->3:"Save"]ADDEND\\DEL:[]DELEND\\

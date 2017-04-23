@@ -39,7 +39,11 @@ public class ClientConnectionHandler implements Runnable {
                 cmdUpdate(requestParts);
             } else if (command.equalsIgnoreCase("GET")) {
                 cmdGetFile(requestParts);
-            } else {
+            } else if (command.equalsIgnoreCase("GETLOG"))
+            {
+                cmdGetLog();
+            }
+            else {
                 System.out.println("CMD not found.");
             }
             socket.close();
@@ -90,6 +94,23 @@ public class ClientConnectionHandler implements Runnable {
             out.flush();
             fin.close();
         } catch (IOException e) {
+        }
+    }
+
+    public void cmdGetLog()
+    {
+        try{
+            String toSend = "", line = "";
+            File file = new File(ROOT, "TextFile-FileLog.txt");
+            BufferedReader in = new BufferedReader(new FileReader(file));
+            while ((line = in.readLine()) != null)
+            {
+                toSend += line;
+                toSend += "\n";
+            }
+            out.print(toSend);
+            out.flush();
+        }catch(IOException e){
         }
     }
 
@@ -237,46 +258,5 @@ public class ClientConnectionHandler implements Runnable {
         }
     }
 
-    /*
-    private void cmdUPLOAD(String fileName) throws IOException { // Handles UPLOAD command
-        try {
-            // open streams
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
-            // read saves the response
-            String response;
-            File newFile = new File("ServerStorage", fileName);
-            if (!newFile.exists()) { // Overwrites files
-                newFile.createNewFile();
-            } else {
-                newFile.delete();
-                newFile.createNewFile();
-            }
-            PrintWriter fout = new PrintWriter(newFile);
-            while ((response = in.readLine()) != null) {
-                fout.println(response);
-            }
-            fout.close();
-            // close the connection
-            out.close();
-            in.close();
-            socket.close();
-        } catch (IOException e) {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-    }
 
-    private void cmdDOWNLOAD(String fileName) throws IOException { // Handles DOWNLOAD command, sends file as string
-        String toSend = "", line = "";
-        File file = new File(ROOT, fileName);
-        BufferedReader in = new BufferedReader(new FileReader(file));
-        while ((line = in.readLine()) != null) {
-            toSend += line;
-            toSend += "\n";
-        }
-        out.print(toSend);
-        out.flush();
-    }
-    */
 }

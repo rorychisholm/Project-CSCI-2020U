@@ -125,6 +125,24 @@ public class ClientConnection extends Thread {
             }
         });
         editArea.add(updateButton, 2, 0);
+
+                /*
+        Button logButton = new Button("Log");
+
+        logButton.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent e) {
+                System.out.print("Boblog");
+                //updateList(clientList, serverList);
+                getLogCmd();
+
+            }
+        });
+       // editArea.add(logButton, 3, 0);*/
+
+///
+
         ////////////////////////////////////////END OF BUTTONS////////////////////////////////////////
 
 
@@ -421,6 +439,39 @@ public class ClientConnection extends Thread {
         }
     }
 
+    private void loadLog() {
+        try {
+            System.out.print("Done");
+            Socket socket = new Socket(hostName, port);
+            System.out.print("Socket...");
+            System.out.print(socket.isConnected());
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            System.out.print("Read/write");
+//command sent
+            out.println("GETLOG");
+            out.flush();
+            System.out.print("Sent command");
+            // read the response
+            String response;
+
+            //textArea.setText("");
+            if (in.readLine()!= null)
+            {
+                System.out.print("not empty");
+            }
+            while ((in.readLine()) != null)
+            {
+                response=in.readLine();
+//                System.out.print(response);
+                System.out.println(response + "\n");
+            }
+            // close the connection
+            socket.close();
+        } catch (IOException e) {
+        }
+    }
+
     public void vectorShift(int newCaret, boolean down) {
         if (down) {
             for (int i = 0; i < caretTracker.size(); i++) {
@@ -448,86 +499,3 @@ public class ClientConnection extends Thread {
 
 
 }
-///////////////////////////////////////EXTRA CODE///////////////////////////////////////
-    /*
-    public void uploadFileCmd(String fileName) { //sends UPLOAD command
-        try {
-            // Initializes sockets and in and out streams
-            socket = new Socket(hostName, port);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream());
-            // Sends request
-            out.println("UPLOAD " + "/" + fileName);
-            out.flush();
-
-            String toSend = "", line;
-            File file = new File(clientStorageRoot, fileName); //Local Opens file
-            BufferedReader fin = new BufferedReader(new FileReader(file));// reads local file
-            while ((line = fin.readLine()) != null) {
-                toSend += line;
-                toSend += "\n";
-            }
-            // Sends local file as String
-            out.print(toSend);
-            out.flush();
-            // Closes streams
-            out.close();
-            in.close();
-            socket.close();
-        } catch (IOException e) {}
-    }
-
-    public  void downloadFileCmd(String fileName) { //sends DOWNLOAD command
-        try {
-            // Initializes sockets and in and out streams
-            Socket socket = new Socket(hostName, port);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
-            // sends command
-            out.println("DOWNLOAD " + "/" + fileName);
-            out.flush();
-            // read the response
-            String response;
-            File newFile = new File("ClientStorage", fileName);
-            if (!newFile.exists()) { // Overwrites files
-                newFile.createNewFile();
-            } else {
-                newFile.delete();
-                newFile.createNewFile();
-            }
-            PrintWriter fout = new PrintWriter(newFile);
-            while ((response = in.readLine()) != null) {
-                fout.println(response);
-            }
-            fout.close();
-            // close the connection
-            out.close();
-            in.close();
-            socket.close();
-        } catch (IOException e) {}
-    }
-
-    public ObservableList<String> listFiles() { // Lists files on local side returns the observable list
-        File clientStorage = new File("ClientStorage");
-        if (!clientStorage.isDirectory()) { // Makes storage if there Isn't one
-            clientStorage.mkdir();
-        }
-        ObservableList<String> tempList = FXCollections.observableArrayList();
-        File fileList[] = clientStorage.listFiles();
-        for (int i = 0; i < fileList.length; i++) {
-            tempList.add(fileList[i].getName());
-        }
-        return tempList;
-    }
-
-    public void updateList(ListView<String> clientList, ListView<String> serverList) {
-        // Updates observable list and calls listFiles and getUpdateCmd
-        System.out.println("Updating...");
-        observClieList = listFiles();
-        //observServList = getUpdateCmd();
-        clientList.setItems(observClieList);
-        serverList.setItems(observServList);
-        System.out.println(" ...Done");
-    }
-    */
-

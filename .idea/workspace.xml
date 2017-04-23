@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ClientConnection.java" afterPath="$PROJECT_DIR$/src/sample/ClientConnection.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ClientConnectionHandler.java" afterPath="$PROJECT_DIR$/src/sample/ClientConnectionHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ClientConnectionServer.java" afterPath="$PROJECT_DIR$/src/sample/ClientConnectionServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Main.java" afterPath="$PROJECT_DIR$/src/sample/Main.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,15 +70,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="5" column="137" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2361#2362#0" expanded="false" />
-                <element signature="e#2389#2390#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,8 +85,8 @@
       <file leaf-file-name="ClientConnectionServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-50">
-              <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+            <state relative-caret-position="450">
+              <caret line="57" column="1" lean-forward="false" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,10 +97,9 @@
       <file leaf-file-name="ClientConnection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ClientConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="35" column="41" lean-forward="false" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+            <state relative-caret-position="202">
+              <caret line="501" column="0" lean-forward="false" selection-start-line="501" selection-start-column="0" selection-end-line="501" selection-end-column="0" />
               <folding>
-                <element signature="class#4432:4807" expanded="false" />
                 <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -108,25 +107,23 @@
                 <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
                 <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-                <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-                <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+                <element signature="e#19823#19824#0" expanded="true" />
+                <element signature="e#19896#19897#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientConnectionHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientConnectionHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="248" column="56" lean-forward="true" selection-start-line="248" selection-start-column="56" selection-end-line="248" selection-end-column="56" />
+            <state relative-caret-position="-1436">
+              <caret line="100" column="5" lean-forward="true" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
                 <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
                 <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
                 <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-                <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -175,19 +172,19 @@
       <list>
         <option value="$PROJECT_DIR$/src/sample/runServerClass.java" />
         <option value="$PROJECT_DIR$/src/sample/TimerClass.java" />
-        <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/ClientConnectionServer.java" />
-        <option value="$PROJECT_DIR$/src/sample/ClientConnection.java" />
         <option value="$PROJECT_DIR$/src/sample/ClientConnectionHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/ClientConnection.java" />
+        <option value="$PROJECT_DIR$/src/sample/Main.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="-1" />
+    <option name="y" value="25" />
+    <option name="width" value="1362" />
+    <option name="height" value="639" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -484,27 +481,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-1" y="25" width="1362" height="639" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32405892" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32287824" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30932897" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32472324" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34042552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20424597" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -520,8 +515,10 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290469" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -566,7 +563,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java</url>
+          <line>246</line>
+          <properties />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/sample/ClientConnection.java</url>
+          <line>475</line>
+          <properties />
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java</url>
+          <line>22</line>
+          <properties />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -580,9 +597,7 @@
         <state relative-caret-position="459">
           <caret line="31" column="9" lean-forward="false" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -592,7 +607,6 @@
         <state relative-caret-position="2125">
           <caret line="154" column="5" lean-forward="false" selection-start-line="154" selection-start-column="5" selection-end-line="154" selection-end-column="5" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -600,8 +614,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -622,11 +636,9 @@
           <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -636,9 +648,7 @@
         <state relative-caret-position="459">
           <caret line="31" column="9" lean-forward="false" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -648,7 +658,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -656,8 +665,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -678,11 +687,9 @@
           <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -692,9 +699,7 @@
         <state relative-caret-position="459">
           <caret line="31" column="9" lean-forward="false" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -704,7 +709,6 @@
         <state relative-caret-position="3570">
           <caret line="210" column="12" lean-forward="true" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="64" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -712,8 +716,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -734,11 +738,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -748,9 +750,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -760,7 +760,6 @@
         <state relative-caret-position="2244">
           <caret line="162" column="5" lean-forward="false" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -768,8 +767,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -790,11 +789,9 @@
           <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -804,9 +801,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -816,7 +811,6 @@
         <state relative-caret-position="2176">
           <caret line="162" column="5" lean-forward="false" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -824,8 +818,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -846,11 +840,9 @@
           <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -860,9 +852,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -872,7 +862,6 @@
         <state relative-caret-position="2754">
           <caret line="162" column="5" lean-forward="false" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -880,8 +869,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -902,11 +891,9 @@
           <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -916,9 +903,7 @@
         <state relative-caret-position="374">
           <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -928,7 +913,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -936,8 +920,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -958,11 +942,9 @@
           <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -972,9 +954,7 @@
         <state relative-caret-position="136">
           <caret line="19" column="64" lean-forward="false" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -984,7 +964,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -992,8 +971,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1014,11 +993,9 @@
           <caret line="37" column="47" lean-forward="false" selection-start-line="37" selection-start-column="47" selection-end-line="37" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1028,9 +1005,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1040,7 +1015,6 @@
         <state relative-caret-position="408">
           <caret line="41" column="0" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="41" selection-end-column="0" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -1048,8 +1022,8 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1070,11 +1044,9 @@
           <caret line="9" column="56" lean-forward="false" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
             <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1084,9 +1056,7 @@
         <state relative-caret-position="68">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1125,69 +1095,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Thread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="744" column="0" lean-forward="false" selection-start-line="744" selection-start-column="0" selection-end-line="744" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/Timer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7378">
-          <caret line="554" column="0" lean-forward="false" selection-start-line="554" selection-start-column="0" selection-end-line="554" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Thread.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/Timer.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/TimerClass.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/runServerClass.java" />
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2361#2362#0" expanded="false" />
-            <element signature="e#2389#2390#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/event/EventHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/scene/input/KeyCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="152" column="37" lean-forward="false" selection-start-line="152" selection-start-column="32" selection-end-line="152" selection-end-column="37" />
-          <folding>
-            <element signature="e#27583#27584#0" expanded="false" />
-            <element signature="e#27643#27644#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/event/EventHandler.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/scene/input/KeyCode.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-50">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        <state relative-caret-position="450">
+          <caret line="57" column="1" lean-forward="false" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1436">
+          <caret line="100" column="5" lean-forward="true" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
+            <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
+            <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ClientConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="35" column="41" lean-forward="false" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+        <state relative-caret-position="202">
+          <caret line="501" column="0" lean-forward="false" selection-start-line="501" selection-start-column="0" selection-end-line="501" selection-end-column="0" />
           <folding>
-            <element signature="class#4432:4807" expanded="false" />
             <element signature="method#timerStart#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#openFile#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#load#0;class#ClientConnection#0" expanded="false" />
@@ -1195,23 +1136,18 @@
             <element signature="method#saveAs#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#codeCreater#0;class#ClientConnection#0" expanded="false" />
             <element signature="method#loadFile#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#vectorShift#0;class#ClientConnection#0" expanded="false" />
-            <element signature="method#cancelTimer#0;class#ClientConnection#0" expanded="false" />
+            <element signature="e#19823#19824#0" expanded="true" />
+            <element signature="e#19896#19897#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ClientConnectionHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="248" column="56" lean-forward="true" selection-start-line="248" selection-start-column="56" selection-end-line="248" selection-end-column="56" />
+        <state relative-caret-position="90">
+          <caret line="5" column="137" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdUpdate#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#updateLogs#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#addToFile#0;class#ClientConnectionHandler#0" expanded="false" />
-            <element signature="method#cmdGetFile#0;class#ClientConnectionHandler#0" expanded="false" />
           </folding>
         </state>
       </provider>

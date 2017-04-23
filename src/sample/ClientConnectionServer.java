@@ -16,9 +16,9 @@ public class ClientConnectionServer extends Thread{
     public ClientConnectionServer(int port) throws IOException {
         this.port = port;
         try{
-            serverSocket = new ServerSocket(port);
+            serverSocket = new ServerSocket(port); ///sets socket
         }catch(BindException e){
-            System.err.println("Socket in use");
+            System.err.println("Socket in use"); // if socket is in use, catches error
             System.exit(0);
         }
     }
