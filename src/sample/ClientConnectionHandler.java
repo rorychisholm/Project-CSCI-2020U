@@ -69,19 +69,19 @@ public class ClientConnectionHandler implements Runnable {
             // Be careful of whats inputted to the code doesn't mix up with the message
             String add = fileChanges.substring(fileChanges.indexOf("ADD:[") + 5, fileChanges.indexOf("]ADDEND\\\\", fileChanges.indexOf("ADD:[")));
             while (add.contains("\"|")) {
-                System.out.println("Adding: " + add.substring(0, add.indexOf("\"|")+1));
-                addToFile(file, add.substring(0, add.indexOf("\"|")+1));
-                add = add.substring(add.indexOf("\"|")+2 , add.length());
+                System.out.println("Adding: " + add.substring(0, add.indexOf("\"|") + 1));
+                addToFile(file, add.substring(0, add.indexOf("\"|") + 1));
+                add = add.substring(add.indexOf("\"|") + 2, add.length());
             }
             System.out.println("Adding: " + add);
             addToFile(file, add);
 
-            String del = fileChanges.substring(fileChanges.indexOf("DEL:[",fileChanges.indexOf("]ADDEND\\\\")) + 5,
+            String del = fileChanges.substring(fileChanges.indexOf("DEL:[", fileChanges.indexOf("]ADDEND\\\\")) + 5,
                     fileChanges.indexOf("]DELEND\\\\", fileChanges.indexOf("DEL:[")));
             while (del.contains("|")) {
                 System.out.println("Deleting: " + del.substring(0, del.indexOf("|")));
                 delFromFile(file, del.substring(0, del.indexOf("|")));
-                del = del.substring(del.indexOf("|")+1 , del.length());
+                del = del.substring(del.indexOf("|") + 1, del.length());
             }
             System.out.println("Deleting: " + del);
             delFromFile(file, del);
@@ -133,83 +133,92 @@ public class ClientConnectionHandler implements Runnable {
     }
 
     public void addToFile(File file, String addCode) throws IOException {
-        if (!addCode.isEmpty()){
+        if (!addCode.isEmpty()) {
             //System.out.println("Caret: " + addCode.substring(0,addCode.indexOf("-")));
-            int caret = Integer.parseInt(addCode.substring(0,addCode.indexOf("-"))),caretIndex = 0;
+            int caret = Integer.parseInt(addCode.substring(0, addCode.indexOf("-"))), caretIndex = 0;
             String message = addCode.substring(addCode.indexOf(":\"") + 2, addCode.length() - 1), line;
             Vector<String> newLines = new Vector<>();
             //System.out.println("Message: " + message);
             BufferedReader in = new BufferedReader(new FileReader(file));
-                while((line = in.readLine()) != null){
-                    //System.out.println("Caret: "+caret+", Index: "+caretIndex+", Length: "+(caretIndex+line.length()));
-                    if((caretIndex <= caret) && (caret < caretIndex+line.length())){
-                        //System.out.println("line: " + line);
-                        line = line.substring(0, caret-caretIndex) + message + line.substring(caret-caretIndex, line.length());
-                        System.out.println("new line: " + line);
-                    }
-                    newLines.add(line);
-                    caretIndex += line.length();
+            while ((line = in.readLine()) != null) {
+                //System.out.println("Caret: " + caret + ", New Caret: " + (caret - caretIndex) + ", Index: " + caretIndex + ", Length: " + (caretIndex + line.length()));
+                if ((caretIndex < caret) && (caret < caretIndex + line.length())) {
+                    //System.out.println("line: " + line);
+                    line = line.substring(0, caret - caretIndex) + message + line.substring(caret - caretIndex - 1, line.length());
+                    //System.out.println("new line: " + line);
+                } else if (caret == caretIndex) {
+                    line = message + line;
+                } else if (caret == caretIndex + line.length()) {
+                    line = line + message;
                 }
-                if (caretIndex <= caret){
-                    newLines.add(message);
+                newLines.add(line);
+                caretIndex += line.length()+1;
+            }
+            if (caretIndex <= caret) {
+                newLines.add(message);
             }
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < newLines.size(); i++) {
-                newLines.set(i,newLines.get(i).replace("\\n\\",System.getProperty("line.separator")));
-                System.out.println("newLine["+i+"]: " + newLines.get(i));
-                writer.write(newLines.get(i)+System.getProperty("line.separator"));
+                newLines.set(i, newLines.get(i).replace("\\n\\", System.getProperty("line.separator")));
+                System.out.println("newLine[" + i + "]: " + newLines.get(i));
+                writer.write(newLines.get(i) + System.getProperty("line.separator"));
                 writer.flush();
             }
             writer.close();
         }
     }
 
-    public void delFromFile(File file, String delCode) throws IOException{
-        if (!delCode.isEmpty()){
-            int caretStart,caretEnd,caretIndex = 0;
-            if (delCode.contains("-")){
-                caretStart = Integer.parseInt(delCode.substring(0,delCode.indexOf("-")));
-                caretEnd = Integer.parseInt(delCode.substring(delCode.indexOf(">")+1,delCode.length()));
-            }else{
-                caretStart = Integer.parseInt(delCode.substring(0,delCode.length()));
-                caretEnd = Integer.parseInt(delCode.substring(0,delCode.length()));
+    public void delFromFile(File file, String delCode) throws IOException {
+        if (!delCode.isEmpty()) {
+            int caretStart, caretEnd, caretIndex = 0;
+            if (delCode.contains("-")) {
+                caretStart = Integer.parseInt(delCode.substring(0, delCode.indexOf("-")));
+                caretEnd = Integer.parseInt(delCode.substring(delCode.indexOf(">") + 1, delCode.length()));
+            } else {
+                caretStart = Integer.parseInt(delCode.substring(0, delCode.length()));
+                caretEnd = Integer.parseInt(delCode.substring(0, delCode.length()));
             }
-            System.out.println("CaretStart: " + caretStart +"|CaretEnd: " + caretEnd);
+            System.out.println("CaretStart: " + caretStart + "|CaretEnd: " + caretEnd);
             String line;
             Vector<String> newLines = new Vector<>();
             BufferedReader in = new BufferedReader(new FileReader(file));
-            while((line = in.readLine()) != null){
-                if((caretIndex <= caretStart) && (caretEnd < caretIndex+line.length())){
-                    System.out.println("CaretStart: " + (caretStart-caretIndex) +"|CaretEnd: " + (caretEnd-caretIndex));
-                    line = line.substring(0, caretStart-caretIndex) + line.substring(caretEnd-caretIndex+1, line.length());
+            while ((line = in.readLine()) != null) {
+                System.out.println("Start Caret: " + caretStart + ", End Caret: " + caretEnd + ", Index: " + caretIndex + ", Length: " + (caretIndex + line.length()));
+                if ((caretIndex < caretStart) && (caretEnd < caretIndex + line.length())) {
+                    System.out.println("CaretStart: " + (caretStart - caretIndex) + "|CaretEnd: " + (caretEnd - caretIndex));
+                    line = line.substring(0, caretStart - caretIndex) + line.substring(caretEnd - caretIndex, line.length());
                     System.out.println("new line: " + line);
+                } else if (caretStart == caretIndex) {
+                    line = line.substring(caretEnd - caretIndex, line.length());
+                } else if (caretEnd == caretIndex + line.length()) {
+                    line = line.substring(0, caretStart - caretIndex);
                 }
                 newLines.add(line);
                 caretIndex += line.length();
             }
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < newLines.size(); i++) {
-                newLines.set(i,newLines.get(i).replace("\\n\\",System.getProperty("line.separator")));
-                System.out.println("newLine["+i+"]: " + newLines.get(i));
-                writer.write(newLines.get(i)+System.getProperty("line.separator"));
+                newLines.set(i, newLines.get(i).replace("\\n\\", System.getProperty("line.separator")));
+                System.out.println("newLine[" + i + "]: " + newLines.get(i));
+                writer.write(newLines.get(i) + System.getProperty("line.separator"));
                 writer.flush();
             }
             writer.close();
         }
     }
 
-    public void cmdGetFile(String[] cmdParts){
-        try{
-        String toSend = "", line = "";
-        File file = new File(ROOT, cmdParts[1]);
-        BufferedReader in = new BufferedReader(new FileReader(file));
-        while ((line = in.readLine()) != null) {
-            toSend += line;
-            toSend += "\n";
-        }
-        out.print(toSend);
-        out.flush();
-        }catch(IOException e){
+    public void cmdGetFile(String[] cmdParts) {
+        try {
+            String toSend = "", line = "";
+            File file = new File(ROOT, cmdParts[1]);
+            BufferedReader in = new BufferedReader(new FileReader(file));
+            while ((line = in.readLine()) != null) {
+                toSend += line;
+                toSend += "\n";
+            }
+            out.print(toSend);
+            out.flush();
+        } catch (IOException e) {
         }
     }
 

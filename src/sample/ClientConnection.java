@@ -34,6 +34,7 @@ public class ClientConnection extends Thread {
     private Vector<KeyCode> keyTracker;
     private Vector<Integer> caretTracker;
     private Vector<Boolean> shiftTracker;
+    //private Vector<Vector<int>> newLineTracker;
 
 
     public ClientConnection(int port, String hostName, Stage stage, int cNum) {
@@ -141,7 +142,7 @@ public class ClientConnection extends Thread {
             if (!event.getCode().isArrowKey() && !event.getCode().isFunctionKey() && !event.getCode().isModifierKey()
                     && !event.getCode().isMediaKey() && !event.getCode().isNavigationKey()) {
                 if (event.getCode() == KeyCode.BACK_SPACE) { // if the key is backspace
-                    System.out.println("test 10: " + (textArea.getCaretPosition() - 1));
+                    System.out.println("test 13: " + (textArea.getCaretPosition() - 1));
                     if (!caretTracker.contains(textArea.getCaretPosition() - 1)) {
                         System.out.println("test 12:");
                         caretTracker.add(textArea.getCaretPosition() - 1);
@@ -261,7 +262,7 @@ public class ClientConnection extends Thread {
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm"); // Sets format for date and time
             Date date = new Date(); // Gets current date and time
-            // Command Format: "CMD,DATE,CLIENTNUM,OPENFILENAME"
+            // Command Format: "CMD_DATE_CLIENTNUM_OPENFILENAME"
             String cmd = "UPDATE";
             cmd += "," + dateFormat.format(date);
             cmd += "," + cNum;
@@ -292,9 +293,7 @@ public class ClientConnection extends Thread {
     ---Done---
     - Makes added words into a Code
     ---To Do---
-    - Needs Deletion Functionality
-        - Backspaces only work if overwritten
-        - Cannot Delete Text
+    - Needs multiline deleting
     - Needs text shifting functionality
      */
     private String codeCreater(Vector<KeyCode> keys, Vector<Integer> caret, Vector<Boolean> shiftDown) {
@@ -306,7 +305,7 @@ public class ClientConnection extends Thread {
         int addMax = 0, delMax = 0, tempI = 0, shift = 1;
         // Puts the vectors into a maps
         for (int i = 0; i < caret.size(); i++) {
-            if (keys.get(i).impl_getCode() == KeyCode.BACK_SPACE.impl_getCode()){
+            if (keys.get(i).impl_getCode() == KeyCode.BACK_SPACE.impl_getCode()) {
                 delMap.put(caret.get(i), keys.get(i).toString());
                 if (caret.get(i) > delMax) {
                     delMax = caret.get(i);
@@ -320,14 +319,14 @@ public class ClientConnection extends Thread {
                     temp = keys.get(i).impl_getChar();
                 }
                 addMap.put(caret.get(i), temp);
-                if (caret.get(i) > addMax) {
+                if (caret.get(i) > addMax){
                     addMax = caret.get(i);
                 }
             }
         }
         // Add Code Maker
         temp = "";
-        for (int i = 0; i <= addMax; i++) {
+        for (int i = 0; i <= addMax; i++){
             if (addMap.get(i) != null) {
                 temp += addMap.get(i);
                 //System.out.print(map.get(i));
@@ -345,7 +344,6 @@ public class ClientConnection extends Thread {
                 tempI = i;
             }
         }
-
         // Delete Code Maker
         tempI = 0;
         for (int i = 0; i <= delMax; i++) {
@@ -354,21 +352,25 @@ public class ClientConnection extends Thread {
                     if ((i > 0) && (delMap.get(i - 1) == null)) {
                         delText.add(Integer.toString(i - shift));
                         shift += 1;
+                    }else if(i<2){
+                        delText.add(Integer.toString(i));
+                        shift += 1;
                     } else {
                         delText.add(tempI - shift + "->" + (i - shift));
                         shift += (i - tempI);
                     }
                 }
             } else if ((i > 0) && (delMap.get(i - 1) != null)) {
-                if ((i > 0) && (delMap.get(i - 2) == null)) {
+                if (i < 2) {
+                    delText.add(Integer.toString(i));
+                    shift += 1;
+                } else if ((i > 0) && (delMap.get(i - 2) == null)) {
                     delText.add(Integer.toString(i - shift));
                     shift += 1;
                 } else {
                     delText.add(tempI - shift + "->" + (i - shift - 1));
                     shift += (i - tempI);
                 }
-            } else if (i == 0) {
-                tempI = i;
             }
             if ((i > 0) && (delMap.get(i - 1) == null)) {
                 tempI = i;
@@ -390,6 +392,7 @@ public class ClientConnection extends Thread {
             }
         }
         code += "]DELEND\\\\";
+
         keyTracker.clear();
         caretTracker.clear();
         shiftTracker.clear();
